@@ -1,7 +1,10 @@
 package no.kommune.oslo.model
 
-import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions.*
 import org.junit.jupiter.api.Test
+import kotlin.test.assertFailsWith
+
+//import org.junit.jupiter.api.assertThrows
 
 internal class RiskApetiteTest {
 
@@ -36,14 +39,13 @@ internal class RiskApetiteTest {
         }
     }
 
-//    @Test
-//    fun `Throws exception when getSeverityLevel is called with illegal arguments￿￿`() {
-//        var riskApetite = createriskApetite()
-//        assertThrows<ArrayIndexOutOfBoundsException> {
-//            val severity = riskApetite.getSeverityLevel(0,1)
-//        }
-//
-//    }
+    @Test
+    fun `Throws exception when getSeverityLevel is called with illegal arguments￿￿`() {
+        var riskApetite = createriskApetite()
+        assertFailsWith<ArrayIndexOutOfBoundsException> {
+            val severity = riskApetite.getSeverityLevel(0,1)
+        }
+    }
 
     private fun createriskApetite(): RiskApetite {
         val riskApetite = RiskApetite(
