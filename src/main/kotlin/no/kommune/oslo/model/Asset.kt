@@ -4,11 +4,16 @@ data class Asset (val description: String, val assetValues: List<AssetValue>) {
     private val higherBoundary = 3
 
     init {
-        if (assetValues == null) throw IllegalArgumentException("AssetValues can not be null!")
         if (assetValues.size != higherBoundary) throw IllegalArgumentException("AssetValues size has to be ${higherBoundary}!")
     }
 
     fun getAssestValue(): AssetValue {
-        throw NoSuchMethodException("Method not implemented yet!")
+        var higestAssetValue = assetValues[0]
+        for (assetValue in assetValues) {
+            if (assetValue.assetNumberValue > higestAssetValue.assetNumberValue) {
+                higestAssetValue = assetValue
+            }
+        }
+        return higestAssetValue
     }
 }
