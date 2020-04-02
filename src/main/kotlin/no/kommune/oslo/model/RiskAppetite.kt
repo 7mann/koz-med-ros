@@ -1,19 +1,25 @@
 package no.kommune.oslo.model
 
-import no.kommune.oslo.model.SeverityLevels.*
-
 data class RiskApetite(val riskMatrix: Array<Array<SeverityLevels>>) {
     private val lowerBoundary = 1
-    private val higerBoundary =5
+    private val higherBoundary =5
 
     init {
         if (riskMatrix == null) throw IllegalArgumentException("RiskMatrix can not be null!")
-        if (riskMatrix.size != 5) throw IllegalArgumentException("RiskMatrix size has to be 5!")
+        if (riskMatrix.size != higherBoundary) throw IllegalArgumentException("RiskMatrix size has to be ${higherBoundary}!")
     }
 
-
-    fun returnRisk(consequence: Int, probability: Int): SeverityLevels {
-        return INSIGNIFICANT
+    fun getSeverityLevel(consequenceIndex: Int, probabilityIndex: Int): SeverityLevels {
+        if (consequenceIndex < lowerBoundary || consequenceIndex > higherBoundary) {
+            throw ArrayIndexOutOfBoundsException("Consequence index must be between ${lowerBoundary} and ${higherBoundary}!")
+        }
+        if (probabilityIndex < lowerBoundary || consequenceIndex > higherBoundary) {
+            throw ArrayIndexOutOfBoundsException("Probability index must be between ${lowerBoundary} and ${higherBoundary}!")
+        }
+        val consequenceArrayIndex = consequenceIndex - 1 //Note! Have to convert to Array indexes starting at 0
+        val probabilityArrayIndex = probabilityIndex - 1 //Note! Have to convert to Array indexes starting at 0
+        val probabilityArray = riskMatrix[consequenceArrayIndex]
+        return probabilityArray[probabilityArrayIndex]
     }
 
     override fun toString(): String {
@@ -43,18 +49,4 @@ data class RiskApetite(val riskMatrix: Array<Array<SeverityLevels>>) {
         returnText = returnText.padEnd(returnText.length + padRight)
         return (returnText)
     }
-
-    fun getSeverityLevel(consequenceIndex: Int, probabilityIndex: Int): SeverityLevels {
-        if (consequenceIndex < lowerBoundary || consequenceIndex > higerBoundary) {
-            throw ArrayIndexOutOfBoundsException("Consequence index must be between ${lowerBoundary} and ${higerBoundary}!")
-        }
-        if (probabilityIndex < lowerBoundary || consequenceIndex > higerBoundary) {
-            throw ArrayIndexOutOfBoundsException("Probability index must be between ${lowerBoundary} and ${higerBoundary}!")
-        }
-        val consequenceArrayIndex = consequenceIndex - 1 //Note! Have to convert to Array indexes starting at 0
-        val probabilityArrayIndex = probabilityIndex - 1 //Note! Have to convert to Array indexes starting at 0
-        val probabilityArray = riskMatrix[consequenceArrayIndex]
-        return probabilityArray[probabilityArrayIndex]
-    }
-
 }
