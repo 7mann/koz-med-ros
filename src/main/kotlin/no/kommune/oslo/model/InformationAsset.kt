@@ -2,7 +2,7 @@ package no.kommune.oslo.model
 
 import no.kommune.oslo.model.AssetValueTypes.*
 
-data class InformationAsset(val confidencialityValue: Int, val integrityValue: Int, val availabilityValue: Int) {
+data class InformationAsset(val confidencialityValue: SeverityLevels, val integrityValue: SeverityLevels, val availabilityValue: SeverityLevels) {
 
     fun returnAssetValue(): AssetValue {
         var assetValue = AssetValue(CONFIDENCIALITYVALUE, confidencialityValue)
@@ -10,7 +10,7 @@ data class InformationAsset(val confidencialityValue: Int, val integrityValue: I
         if (integrityValue > confidencialityValue) {
             assetValue = AssetValue(INTEGRITYVALUE, integrityValue)
         }
-        if (availabilityValue > assetValue.assetNumberValue){
+        if (availabilityValue > assetValue.severityLevel){
             assetValue = AssetValue(AVAILABILITYVALUE, availabilityValue)
         }
         return assetValue
