@@ -1,7 +1,6 @@
 package no.kommune.oslo.methodology
 
 //import mu.KLogging
-import com.sun.org.slf4j.internal.LoggerFactory
 import no.kommune.oslo.model.RiskTestFactory
 import org.junit.jupiter.api.Test
 
