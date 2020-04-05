@@ -25,7 +25,7 @@ object MaxRiskCalcStrategy : RiskCalculationStrategy {
         val additionalWeight = (assets.size - 1) * weightFactorPercentage * maxAsset.getAssetValue().severityLevel.severityLevelValue / 100
 //        logger.debug { "Calculated additional weight: $additionalWeight" }
 
-        print("additionalWeight: $additionalWeight")
+        println("additionalWeight: $additionalWeight")
         //Round to nearest 100
         var maxAssetValueWithWeight = maxAsset.getAssetValue().severityLevel.severityLevelValue + additionalWeight
         maxAssetValueWithWeight = (maxAssetValueWithWeight + (maxAssetValueWithWeight%100)) - (maxAssetValueWithWeight + maxAssetValueWithWeight%100)%100
