@@ -4,10 +4,12 @@ package no.kommune.oslo.methodology
 import no.kommune.oslo.model.Asset
 import no.kommune.oslo.model.SeverityLevels.*
 import no.kommune.oslo.model.Threat
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+
 
 object MaxRiskCalcStrategy : RiskCalculationStrategy {
-//    private val logger = KotlinLogging.logger {}
-
+    private val logger = LogManager.getLogger(javaClass)
     val maxScore = EXTREME
     val weightFactorPercentage = 5
 
@@ -23,7 +25,7 @@ object MaxRiskCalcStrategy : RiskCalculationStrategy {
             //Add asset weight: add a weight factor that reflects number of  assets
         }
         val additionalWeight = (assets.size - 1) * weightFactorPercentage * maxAsset.getAssetValue().severityLevel.severityLevelValue / 100
-//        logger.debug { "Calculated additional weight: $additionalWeight" }
+        logger.debug("Calculated additional weight: $additionalWeight")
 
         println("additionalWeight: $additionalWeight")
         //Round to nearest 100

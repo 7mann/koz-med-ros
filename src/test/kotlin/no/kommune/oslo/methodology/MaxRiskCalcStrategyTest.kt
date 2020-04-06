@@ -1,6 +1,5 @@
 package no.kommune.oslo.methodology
 
-//import mu.KLogging
 import no.kommune.oslo.model.RiskTestFactory
 import org.junit.jupiter.api.Test
 
