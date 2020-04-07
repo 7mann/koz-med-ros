@@ -2,6 +2,7 @@ package no.kommune.oslo.model
 
 import no.kommune.oslo.model.AssetValueTypes.*
 import no.kommune.oslo.model.SeverityLevels.*
+import no.kommune.oslo.model.ThreatTypes.*
 
 object RiskTestFactory {
     //    fun create
@@ -104,5 +105,32 @@ object RiskTestFactory {
                 )
         )
         return assetList
+    }
+
+    fun createHighThreatList(): List<Threat> {
+        val threatList = listOf<Threat>(
+                Threat(
+                        DELIBERATE,
+                        DiscreetThreatPresence(isPresent = true, hasCapacity = false, hasIntention = true, hasHistory = true, isTarget = false),
+                        "Test threat"
+                ),
+                Threat(
+                        ACCIDENTAL,
+                        DiscreetThreatPresence(isPresent = true, hasCapacity = false, hasIntention = true, hasHistory = true, isTarget = false),
+                        "Test threat"
+                ),
+                Threat(
+                        ENVIRONMENTAL,
+                        DiscreetThreatPresence(isPresent = true, hasCapacity = false, hasIntention = true, hasHistory = true, isTarget = false),
+                        "Test threat"
+                ),
+                Threat(
+                        DELIBERATE  ,
+                        DiscreetThreatPresence(isPresent = true, hasCapacity = false, hasIntention = true, hasHistory = true, isTarget = false),
+                        "Test threat"
+                )
+
+        )
+        return threatList
     }
 }
