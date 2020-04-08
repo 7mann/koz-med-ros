@@ -20,16 +20,25 @@ object MaxRiskCalcStrategy : RiskCalculationStrategy {
      * @param weightFactorPercentage percentage of asset value to add based on number of assets. Note! Defaults from interface method signature
      */
     override fun calculateDamagePotential(assets: List<Asset>, weightFactorPercentage: Int): Int {
-        if (assets.isEmpty()) {
-            logger.error("calculateDamagePotential is called with illegal asset list parameter. Can not be of size 0!")
+        if (assets.isEmpty() || weightFactorPercentage < 0) {
+            logger.error("calculateDamagePotential is called with illegal parameters! Asset list parameter can not be of size 0 or weightFactorPercentage < 0.")
             throw IllegalArgumentException("Asset list can not be null or of size 0!")
         }
         return calculateRiskItemsValue(assets, weightFactorPercentage)
     }
 
+    /**
+     * Calculates the threat presence based on the threat items presence value. This algorithm implementation is fairly simple since
+     * it more or less finds the threat that has max value, and use that as a base for threat presence.
+     * If more that one threat in list, and additional weight is added to the value based on number
+     * of threats and weightFactorPercentage
+     *
+     * @param threats list of threats to calculate damage potential
+     * @param weightFactorPercentage percentage of asset value to add based on number of assets. Note! Defaults from interface method signature
+     */
     override fun calculateThreatPresence(threats: List<Threat>, weightFactorPercentage: Int): Int {
-        if (threats.isEmpty()) {
-            logger.error("calculateThreatPresence is called with illegal threat list parameter. Can not be of size 0!")
+        if (threats.isEmpty() || weightFactorPercentage < 0) {
+            logger.error("calculateThreatPresence is called with illegal parameters! Threat list parameter can not be of size 0 or weightFactorPercentage < 0.")
             throw IllegalArgumentException("Asset list can not be null or of size 0!")
         }
         return calculateRiskItemsValue(threats, weightFactorPercentage)
@@ -49,7 +58,7 @@ object MaxRiskCalcStrategy : RiskCalculationStrategy {
         maxRiskItemValueWithWeight = (maxRiskItemValueWithWeight + (maxRiskItemValueWithWeight % 100)) - (maxRiskItemValueWithWeight + maxRiskItemValueWithWeight % 100) % 100 // Not very elegant but modulus number theory is rusty
         logger.debug("maxRiskItemValueWithWeight rounder to closest 100: $maxRiskItemValueWithWeight")
         if (maxRiskItemValueWithWeight > EXTREME.severityLevelValue) { // No legal value above EXTREME
-            logger.debug("maxRiskItemValueWithWeight: $maxRiskItemValueWithWeight is illegal greater than $EXTREME, setting to EXTREME=${EXTREME.severityLevelValue}")
+            logger.debug("maxRiskItemValueWithWeight: $maxRiskItemValueWithWeight is illegal when greater than $EXTREME, setting to EXTREME=${EXTREME.severityLevelValue}")
             maxRiskItemValueWithWeight = EXTREME.severityLevelValue
         }
         return maxRiskItemValueWithWeight
