@@ -1,11 +1,10 @@
 package no.kommune.oslo.model
 
-data class RiskApetite(val riskMatrix: Array<Array<SeverityLevels>>) {
+data class RiskAppetite(val riskMatrix: Array<Array<SeverityLevels>>) {
     private val lowerBoundary = 1
-    private val higherBoundary =5
+    private val higherBoundary = 5
 
     init {
-        if (riskMatrix == null) throw IllegalArgumentException("RiskMatrix can not be null!")
         if (riskMatrix.size != higherBoundary) throw IllegalArgumentException("RiskMatrix size has to be ${higherBoundary}!")
     }
 

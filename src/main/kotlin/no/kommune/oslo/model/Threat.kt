@@ -1,7 +1,9 @@
 package no.kommune.oslo.model
 
-data class Threat(val threatType: ThreatTypes, val threatPresence: ThreatPresence, val description: String) : RiskItem {
+import no.kommune.oslo.methodology.ThreatPresenceCalculation
+
+data class Threat(val threatType: ThreatTypes, val threatPresenceCalculation: ThreatPresenceCalculation, val description: String) : RiskItem {
     override fun getSeverityLevel(): SeverityLevels {
-        return threatPresence.threatPresenceValue
+        return threatPresenceCalculation.threatPresenceValue
     }
 }

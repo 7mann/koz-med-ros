@@ -1,9 +1,10 @@
-package no.kommune.oslo.model
+package no.kommune.oslo.methodology
 
+import no.kommune.oslo.model.SeverityLevels
 import no.kommune.oslo.model.SeverityLevels.*
 
 
-data class DiscreetThreatPresence(val isPresent: Boolean, val hasCapacity: Boolean, val hasIntention: Boolean, val hasHistory: Boolean, val isTarget: Boolean) : ThreatPresence {
+data class DiscreetThreatPresenceCalculation(val isPresent: Boolean, val hasCapacity: Boolean, val hasIntention: Boolean, val hasHistory: Boolean, val isTarget: Boolean) : ThreatPresenceCalculation {
     override val threatPresenceValue: SeverityLevels
         get() {
             var numberOfArgumentsTrue = 0
@@ -12,7 +13,7 @@ data class DiscreetThreatPresence(val isPresent: Boolean, val hasCapacity: Boole
             if (hasIntention) numberOfArgumentsTrue += 1
             if (hasHistory) numberOfArgumentsTrue += 1
             if (isTarget) numberOfArgumentsTrue += 1
-            var result = when(numberOfArgumentsTrue) {
+            val result = when (numberOfArgumentsTrue) {
                 0 -> NONE
                 1 -> INSIGNIFICANT
                 2 -> LOW

@@ -1,7 +1,8 @@
 package no.kommune.oslo.model
 
-import no.kommune.oslo.model.SeverityLevels.*
-import org.assertj.core.api.Assertions.*
+import no.kommune.oslo.model.SeverityLevels.LOW
+import no.kommune.oslo.model.SeverityLevels.MODERATE
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import kotlin.test.assertFailsWith
 
@@ -10,7 +11,7 @@ internal class RiskAppetiteTest {
     @Test
     fun `Throws exception when RiskMatrix is not valid `() {
         assertFailsWith<IllegalArgumentException> {
-            RiskApetite(arrayOf(arrayOf(LOW, LOW, LOW, LOW, MODERATE)))
+            RiskAppetite(arrayOf(arrayOf(LOW, LOW, LOW, LOW, MODERATE)))
         }
     }
 

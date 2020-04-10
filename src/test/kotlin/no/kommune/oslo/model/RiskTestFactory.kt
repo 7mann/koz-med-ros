@@ -1,11 +1,12 @@
 package no.kommune.oslo.model
 
+import no.kommune.oslo.methodology.DiscreetThreatPresenceCalculation
 import no.kommune.oslo.model.AssetValueTypes.*
 import no.kommune.oslo.model.SeverityLevels.*
 import no.kommune.oslo.model.ThreatTypes.*
 
 object RiskTestFactory {
-    fun createRiskApetite() = RiskApetite(
+    fun createRiskApetite() = RiskAppetite(
             arrayOf(
                     arrayOf(LOW, LOW, LOW, LOW, MODERATE),
                     arrayOf(LOW, LOW, LOW, MODERATE, MODERATE),
@@ -97,7 +98,7 @@ object RiskTestFactory {
     fun createHighThreatList() = listOf(
             Threat(
                     DELIBERATE,
-                    DiscreetThreatPresence(isPresent = true,
+                    DiscreetThreatPresenceCalculation(isPresent = true,
                             hasCapacity = false,
                             hasIntention = false,
                             hasHistory = true,
@@ -106,7 +107,7 @@ object RiskTestFactory {
             ),
             Threat(
                     ACCIDENTAL,
-                    DiscreetThreatPresence(isPresent = true,
+                    DiscreetThreatPresenceCalculation(isPresent = true,
                             hasCapacity = false,
                             hasIntention = true,
                             hasHistory = true,
@@ -115,7 +116,7 @@ object RiskTestFactory {
             ),
             Threat(
                     ENVIRONMENTAL,
-                    DiscreetThreatPresence(isPresent = true,
+                    DiscreetThreatPresenceCalculation(isPresent = true,
                             hasCapacity = true,
                             hasIntention = true,
                             hasHistory = true,
@@ -124,7 +125,7 @@ object RiskTestFactory {
             ),
             Threat(
                     DELIBERATE,
-                    DiscreetThreatPresence(isPresent = true,
+                    DiscreetThreatPresenceCalculation(isPresent = true,
                             hasCapacity = false,
                             hasIntention = true,
                             hasHistory = true,
@@ -137,7 +138,7 @@ object RiskTestFactory {
     fun createModerateThreatList() = listOf(
             Threat(
                     DELIBERATE,
-                    DiscreetThreatPresence(isPresent = true,
+                    DiscreetThreatPresenceCalculation(isPresent = true,
                             hasCapacity = false,
                             hasIntention = false,
                             hasHistory = true,
@@ -146,7 +147,7 @@ object RiskTestFactory {
             ),
             Threat(
                     ACCIDENTAL,
-                    DiscreetThreatPresence(isPresent = true,
+                    DiscreetThreatPresenceCalculation(isPresent = true,
                             hasCapacity = false,
                             hasIntention = true,
                             hasHistory = true,
@@ -155,7 +156,7 @@ object RiskTestFactory {
             ),
             Threat(
                     ENVIRONMENTAL,
-                    DiscreetThreatPresence(isPresent = true,
+                    DiscreetThreatPresenceCalculation(isPresent = true,
                             hasCapacity = false,
                             hasIntention = false,
                             hasHistory = true,
@@ -164,7 +165,7 @@ object RiskTestFactory {
             ),
             Threat(
                     DELIBERATE,
-                    DiscreetThreatPresence(isPresent = true,
+                    DiscreetThreatPresenceCalculation(isPresent = true,
                             hasCapacity = false,
                             hasIntention = true,
                             hasHistory = true,
@@ -173,7 +174,7 @@ object RiskTestFactory {
             ),
             Threat(
                     ACCIDENTAL,
-                    DiscreetThreatPresence(isPresent = true,
+                    DiscreetThreatPresenceCalculation(isPresent = true,
                             hasCapacity = false,
                             hasIntention = true,
                             hasHistory = true,

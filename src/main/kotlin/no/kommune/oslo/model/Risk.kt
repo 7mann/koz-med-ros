@@ -1,5 +1,7 @@
 package no.kommune.oslo.model
 
+import no.kommune.oslo.methodology.RiskCalculationStrategy
+
 data class Risk(
         val id: Int,
         val description: String,
@@ -11,5 +13,7 @@ data class Risk(
         val consequenceWithExistingMitigations: Int,
         val plannedRiskTreatments: List<RiskTreatment>,
         val probabilityWithPlannedMitigations: Int,
-        val consequenceWithPlannedMitigations: Int
+        val consequenceWithPlannedMitigations: Int,
+        val riskCalculationStrategy: RiskCalculationStrategy,
+        val riskAppetite: RiskAppetite
 )

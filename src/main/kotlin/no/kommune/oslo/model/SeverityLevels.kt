@@ -8,5 +8,12 @@ enum class SeverityLevels(val severityLevelValue: Int) {
     MODERATE(severityLevelValue = 300),
     HIGH(severityLevelValue = 400),
     EXTREME(severityLevelValue = 500),
-    INVALID(severityLevelValue = -1)
+    INVALID(severityLevelValue = -1);
+
+    companion object {
+        private val severityValues: Array<SeverityLevels> = values()
+        fun getByValue(numberValue: Int): SeverityLevels {
+            return severityValues.firstOrNull { it.severityLevelValue == numberValue } ?: return INVALID
+        }
+    }
 }
