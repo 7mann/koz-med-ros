@@ -10,58 +10,58 @@ import org.junit.jupiter.api.Test
 import kotlin.test.assertFailsWith
 
 
-internal class MaxRiskCalcStrategyTest {
+internal class MaxRiskCalculationTest {
 
     @Test
     fun `Expect exception thrown when damage calculation method is called with illegal arguments`() {
         assertFailsWith<IllegalArgumentException> {
             val assetList: List<Asset> = emptyList()
-            MaxRiskCalcStrategy.calculateDamagePotential(assetList)
+            MaxRiskCalculation.calculateDamagePotential(assetList)
         }
         assertFailsWith<IllegalArgumentException> {
             val assetList = RiskTestFactory.createModerateAssetList()
-            MaxRiskCalcStrategy.calculateDamagePotential(assetList, -1)
+            MaxRiskCalculation.calculateDamagePotential(assetList, -1)
         }
     }
 
     @Test
     fun `Expect damage potential calculated with additional asset weight`() {
         val assetList = RiskTestFactory.createModerateAssetList()
-        val damagePotential = MaxRiskCalcStrategy.calculateDamagePotential(assetList)
-        assertThat(damagePotential).isEqualTo(EXTREME.severityLevelValue)
+        val damagePotential = MaxRiskCalculation.calculateDamagePotential(assetList)
+        assertThat(damagePotential.severityLevelValue).isEqualTo(EXTREME.severityLevelValue)
     }
 
     @Test
     fun `Expect damage potential calculated not exceeding EXTREME`() {
         val assetList = RiskTestFactory.createHighAssetList()
-        val damagePotential = MaxRiskCalcStrategy.calculateDamagePotential(assetList)
-        assertThat(damagePotential).isLessThanOrEqualTo(EXTREME.severityLevelValue)
+        val damagePotential = MaxRiskCalculation.calculateDamagePotential(assetList)
+        assertThat(damagePotential.severityLevelValue).isLessThanOrEqualTo(EXTREME.severityLevelValue)
     }
 
     @Test
     fun `Expect exception thrown when threat calculation method is called with illegal arguments`() {
         assertFailsWith<IllegalArgumentException> {
             val threatList: List<Threat> = emptyList()
-            MaxRiskCalcStrategy.calculateThreatPresence(threatList)
+            MaxRiskCalculation.calculateThreatPresence(threatList)
         }
         assertFailsWith<IllegalArgumentException> {
             val threatList: List<Threat> = RiskTestFactory.createHighThreatList()
-            MaxRiskCalcStrategy.calculateThreatPresence(threatList, -1)
+            MaxRiskCalculation.calculateThreatPresence(threatList, -1)
         }
     }
 
     @Test
     fun `Expect threat presence calculated with additional asset weight`() {
         val threatList = RiskTestFactory.createModerateThreatList()
-        val threatPresence = MaxRiskCalcStrategy.calculateThreatPresence(threatList)
-        assertThat(threatPresence).isEqualTo(HIGH.severityLevelValue)
+        val threatPresence = MaxRiskCalculation.calculateThreatPresence(threatList)
+        assertThat(threatPresence.severityLevelValue).isEqualTo(HIGH.severityLevelValue)
     }
 
     @Test
     fun `Expect threat presence calculated not exceeding EXTREME`() {
         val threatList = RiskTestFactory.createHighThreatList()
-        val threatPresence = MaxRiskCalcStrategy.calculateThreatPresence(threatList, weightFactorPercentage = 20)
-        assertThat(threatPresence).isLessThanOrEqualTo(EXTREME.severityLevelValue)
+        val threatPresence = MaxRiskCalculation.calculateThreatPresence(threatList, weightFactorPercentage = 20)
+        assertThat(threatPresence.severityLevelValue).isLessThanOrEqualTo(EXTREME.severityLevelValue)
     }
 
 }

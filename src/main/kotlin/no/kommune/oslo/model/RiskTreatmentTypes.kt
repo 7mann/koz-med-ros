@@ -1,5 +1,5 @@
 package no.kommune.oslo.model
 
 enum class RiskTreatmentTypes {
-    PROBABILITY_MITIGATION, CONSEQUENCE_MITIGATION
+    PROBABILITY_RISK_TREATMENT, CONSEQUENCE_RISK_TREATMENT
 }

@@ -1,13 +1,11 @@
 package no.kommune.oslo.methodology
 
-import no.kommune.oslo.model.Asset
-import no.kommune.oslo.model.RiskItem
-import no.kommune.oslo.model.SeverityLevels.EXTREME
-import no.kommune.oslo.model.Threat
+import no.kommune.oslo.model.*
+import no.kommune.oslo.model.SeverityLevels.INVALID
 import org.apache.logging.log4j.LogManager
 
 
-object MaxRiskCalcStrategy : RiskCalculationStrategy {
+object MaxRiskCalculation : RiskCalculation {
     private val logger = LogManager.getLogger(javaClass)
 
     /**
@@ -19,7 +17,7 @@ object MaxRiskCalcStrategy : RiskCalculationStrategy {
      * @param assets list of assets to calculate damage potential
      * @param weightFactorPercentage percentage of asset value to add based on number of assets. Note! Defaults from interface method signature
      */
-    override fun calculateDamagePotential(assets: List<Asset>, weightFactorPercentage: Int): Int {
+    override fun calculateDamagePotential(assets: List<Asset>, weightFactorPercentage: Int): SeverityLevels {
         if (assets.isEmpty() || weightFactorPercentage < 0) {
             logger.error("calculateDamagePotential is called with illegal parameters! Asset list parameter can not be of size 0 or weightFactorPercentage < 0.")
             throw IllegalArgumentException("Asset list can not be null or of size 0!")
@@ -36,7 +34,7 @@ object MaxRiskCalcStrategy : RiskCalculationStrategy {
      * @param threats list of threats to calculate damage potential
      * @param weightFactorPercentage percentage of asset value to add based on number of assets. Note! Defaults from interface method signature
      */
-    override fun calculateThreatPresence(threats: List<Threat>, weightFactorPercentage: Int): Int {
+    override fun calculateThreatPresence(threats: List<Threat>, weightFactorPercentage: Int): SeverityLevels {
         if (threats.isEmpty() || weightFactorPercentage < 0) {
             logger.error("calculateThreatPresence is called with illegal parameters! Threat list parameter can not be of size 0 or weightFactorPercentage < 0.")
             throw IllegalArgumentException("Asset list can not be null or of size 0!")
@@ -44,23 +42,29 @@ object MaxRiskCalcStrategy : RiskCalculationStrategy {
         return calculateRiskItemsValue(threats, weightFactorPercentage)
     }
 
-    private fun calculateRiskItemsValue(riskItems: List<RiskItem>, weightFactorPercentage: Int): Int {
+    fun calculateExistingVulnerability(vulnerabilities: List<Vulnerability>, weightFactorPercentage: Int): SeverityLevels {
+        return INVALID //ToDo implement
+    }
+
+    fun calculateFutureVulnerability(vulnerabilities: List<Vulnerability>, weightFactorPercentage: Int): SeverityLevels {
+        return INVALID //ToDo implement
+    }
+
+
+    private fun calculateRiskItemsValue(riskItems: List<RiskItem>, weightFactorPercentage: Int): SeverityLevels {
         var maxRiskItem: RiskItem = riskItems[0]
         for (riskItem: RiskItem in riskItems) {
             if (riskItem.getSeverityLevel() > maxRiskItem.getSeverityLevel()) {
                 maxRiskItem = riskItem
             }
         }
-        val additionalWeight = (riskItems.size - 1) * weightFactorPercentage * maxRiskItem.getSeverityLevel().severityLevelValue / 100 //Add asset weight: add a weight factor that reflects number of  assets
+        val additionalWeight: Int = (riskItems.size - 1) * weightFactorPercentage * maxRiskItem.getSeverityLevel().severityLevelValue / 100 //Add asset weight: add a weight factor that reflects number of  assets
         logger.debug("Calculated additional weight: $additionalWeight")
         var maxRiskItemValueWithWeight = maxRiskItem.getSeverityLevel().severityLevelValue + additionalWeight //Round to nearest 100
         logger.debug("maxRiskItemValueWithWeight with additional weight: $maxRiskItemValueWithWeight")
-        maxRiskItemValueWithWeight = (maxRiskItemValueWithWeight + (maxRiskItemValueWithWeight % 100)) - (maxRiskItemValueWithWeight + maxRiskItemValueWithWeight % 100) % 100 // Not very elegant but modulus number theory is rusty
-        logger.debug("maxRiskItemValueWithWeight rounder to closest 100: $maxRiskItemValueWithWeight")
-        if (maxRiskItemValueWithWeight > EXTREME.severityLevelValue) { // No legal value above EXTREME
-            logger.debug("maxRiskItemValueWithWeight: $maxRiskItemValueWithWeight is illegal when greater than $EXTREME, setting to EXTREME=${EXTREME.severityLevelValue}")
-            maxRiskItemValueWithWeight = EXTREME.severityLevelValue
-        }
-        return maxRiskItemValueWithWeight
+        maxRiskItemValueWithWeight = SeverityLevels.roundSeverityLevel(maxRiskItemValueWithWeight).severityLevelValue
+        logger.debug("maxRiskItemValueWithWeight rounded to closest 100: $maxRiskItemValueWithWeight")
+        return SeverityLevels.getByValue(maxRiskItemValueWithWeight)
     }
+
 }

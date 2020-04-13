@@ -2,6 +2,9 @@ package no.kommune.oslo.model
 
 import no.kommune.oslo.methodology.DiscreetThreatPresenceCalculation
 import no.kommune.oslo.model.AssetValueTypes.*
+import no.kommune.oslo.model.RiskTreatmentStatus.EXISTING
+import no.kommune.oslo.model.RiskTreatmentStatus.PLANNED
+import no.kommune.oslo.model.RiskTreatmentTypes.PROBABILITY_RISK_TREATMENT
 import no.kommune.oslo.model.SeverityLevels.*
 import no.kommune.oslo.model.ThreatTypes.*
 
@@ -182,6 +185,28 @@ object RiskTestFactory {
                     "MODERATE threat 5"
             )
 
+
+    )
+
+    fun createMixedRiskTreatmentList() = listOf(
+            RiskTreatment(
+                    description = "Test RiskTreamnent 1",
+                    riskTreatmentType = PROBABILITY_RISK_TREATMENT,
+                    riskTreatmentStatus = PLANNED,
+                    riskTreatmentImpact = LOW
+            ),
+            RiskTreatment(
+                    description = "Test RiskTreamnent 2",
+                    riskTreatmentType = PROBABILITY_RISK_TREATMENT,
+                    riskTreatmentStatus = EXISTING,
+                    riskTreatmentImpact = LOW
+            ),
+            RiskTreatment(
+                    description = "Test RiskTreamnent 3",
+                    riskTreatmentType = PROBABILITY_RISK_TREATMENT,
+                    riskTreatmentStatus = PLANNED,
+                    riskTreatmentImpact = MODERATE
+            )
 
     )
 }

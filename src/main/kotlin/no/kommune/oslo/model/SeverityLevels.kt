@@ -15,5 +15,15 @@ enum class SeverityLevels(val severityLevelValue: Int) {
         fun getByValue(numberValue: Int): SeverityLevels {
             return severityValues.firstOrNull { it.severityLevelValue == numberValue } ?: return INVALID
         }
+
+        fun roundSeverityLevel(severityLevelToRound: Int): SeverityLevels {
+            var roundedSeverityLevel = severityLevelToRound
+            roundedSeverityLevel = (roundedSeverityLevel + (roundedSeverityLevel % 100)) - (roundedSeverityLevel + roundedSeverityLevel % 100) % 100 // Not very elegant but modulus number theory is rusty
+            if (roundedSeverityLevel > EXTREME.severityLevelValue) { // No legal value above EXTREME
+                roundedSeverityLevel = EXTREME.severityLevelValue
+            }
+            return getByValue(roundedSeverityLevel)
+        }
+
     }
 }
