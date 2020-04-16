@@ -7,6 +7,7 @@ import no.kommune.oslo.model.RiskTreatmentStatus.PLANNED
 import no.kommune.oslo.model.RiskTreatmentTypes.PROBABILITY_RISK_TREATMENT
 import no.kommune.oslo.model.SeverityLevels.*
 import no.kommune.oslo.model.ThreatTypes.*
+import no.kommune.oslo.model.VulnerabilityTypes.*
 
 object RiskTestFactory {
     fun createRiskApetite() = RiskAppetite(
@@ -190,23 +191,76 @@ object RiskTestFactory {
 
     fun createMixedRiskTreatmentList() = listOf(
             RiskTreatment(
-                    description = "Test RiskTreamnent 1",
+                    description = "Test RiskTreatment 1",
                     riskTreatmentType = PROBABILITY_RISK_TREATMENT,
                     riskTreatmentStatus = PLANNED,
                     riskTreatmentImpact = LOW
             ),
             RiskTreatment(
-                    description = "Test RiskTreamnent 2",
+                    description = "Test RiskTreatment 2",
                     riskTreatmentType = PROBABILITY_RISK_TREATMENT,
                     riskTreatmentStatus = EXISTING,
                     riskTreatmentImpact = LOW
             ),
             RiskTreatment(
-                    description = "Test RiskTreamnent 3",
+                    description = "Test RiskTreatment 3",
                     riskTreatmentType = PROBABILITY_RISK_TREATMENT,
                     riskTreatmentStatus = PLANNED,
                     riskTreatmentImpact = MODERATE
             )
+    )
 
+    fun createLowExistingRiskTreatmentList() = listOf(
+            RiskTreatment(
+                    description = "Test Existing RiskTreatment 1",
+                    riskTreatmentType = PROBABILITY_RISK_TREATMENT,
+                    riskTreatmentStatus = EXISTING,
+                    riskTreatmentImpact = LOW
+            ),
+            RiskTreatment(
+                    description = "Test Existing RiskTreatment 2",
+                    riskTreatmentType = PROBABILITY_RISK_TREATMENT,
+                    riskTreatmentStatus = EXISTING,
+                    riskTreatmentImpact = LOW
+            ),
+            RiskTreatment(
+                    description = "Test Existing RiskTreatment 3",
+                    riskTreatmentType = PROBABILITY_RISK_TREATMENT,
+                    riskTreatmentStatus = EXISTING,
+                    riskTreatmentImpact = MODERATE
+            )
+    )
+
+    fun createVulnerabilityList() = listOf(
+            Vulnerability(
+                    vulnerabilityType = TECHNICAL,
+                    vulnerabilityDescription = "Test vulnerability 1",
+                    vulnerabilityPotential = LOW,
+                    exploitedByThreats = createModerateThreatList(),
+                    riskTreatments = createMixedRiskTreatmentList()),
+            Vulnerability(
+                    vulnerabilityType = HUMAN,
+                    vulnerabilityDescription = "Test vulnerability 2",
+                    vulnerabilityPotential = MODERATE,
+                    exploitedByThreats = createHighThreatList(),
+                    riskTreatments = createLowExistingRiskTreatmentList()),
+            Vulnerability(
+                    vulnerabilityType = ORGANIZATIONAL,
+                    vulnerabilityDescription = "Test vulnerability 3",
+                    vulnerabilityPotential = HIGH,
+                    exploitedByThreats = createModerateThreatList(),
+                    riskTreatments = createLowExistingRiskTreatmentList()),
+            Vulnerability(
+                    vulnerabilityType = TECHNICAL,
+                    vulnerabilityDescription = "Test vulnerability 4",
+                    vulnerabilityPotential = EXTREME,
+                    exploitedByThreats = createModerateThreatList(),
+                    riskTreatments = createMixedRiskTreatmentList()),
+            Vulnerability(
+                    vulnerabilityType = TECHNICAL,
+                    vulnerabilityDescription = "Test vulnerability 5",
+                    vulnerabilityPotential = LOW,
+                    exploitedByThreats = createModerateThreatList(),
+                    riskTreatments = createMixedRiskTreatmentList())
     )
 }

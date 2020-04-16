@@ -5,12 +5,14 @@ import no.kommune.oslo.model.RiskTestFactory
 import no.kommune.oslo.model.SeverityLevels.EXTREME
 import no.kommune.oslo.model.SeverityLevels.HIGH
 import no.kommune.oslo.model.Threat
+import org.apache.logging.log4j.LogManager
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import kotlin.test.assertFailsWith
 
 
 internal class MaxRiskCalculationTest {
+    private val logger = LogManager.getLogger(javaClass)
 
     @Test
     fun `Expect exception thrown when damage calculation method is called with illegal arguments`() {
@@ -62,6 +64,18 @@ internal class MaxRiskCalculationTest {
         val threatList = RiskTestFactory.createHighThreatList()
         val threatPresence = MaxRiskCalculation.calculateThreatPresence(threatList, weightFactorPercentage = 20)
         assertThat(threatPresence.severityLevelValue).isLessThanOrEqualTo(EXTREME.severityLevelValue)
+    }
+
+    @Test
+    fun calculateExistingVulnerability() {
+        val vulnerabilities = RiskTestFactory.createVulnerabilityList()
+        val vulnerabilityLevel = MaxRiskCalculation.calculateExistingVulnerability(vulnerabilities)
+        logger.debug("vulnerabilityLevel: $vulnerabilityLevel")
+    }
+
+    @Test
+    fun calculateFutureVulnerability() {
+//        throw
     }
 
 }

@@ -5,4 +5,8 @@ data class RiskTreatment(
         val riskTreatmentType: RiskTreatmentTypes,
         val riskTreatmentStatus: RiskTreatmentStatus,
         val riskTreatmentImpact: SeverityLevels
-)
+) : RiskItem {
+    override fun getSeverityLevel(): SeverityLevels {
+        return this.riskTreatmentImpact
+    }
+}
