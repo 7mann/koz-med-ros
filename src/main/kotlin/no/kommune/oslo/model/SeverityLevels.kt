@@ -24,6 +24,5 @@ enum class SeverityLevels(val severityLevelValue: Int) {
             }
             return getByValue(roundedSeverityLevel)
         }
-
     }
 }

@@ -1,0 +1,111 @@
+@startuml
+skinparam class {
+    BackgroundColor<<TODO>> Pink
+    BorderColor<<TODO>> Tomato
+}
+skinparam stereotypeCBackgroundColor<<TODO>> LightGray
+
+class Asset <<(D,orchid)>> {
+  AssetValue
+  Classification
+}
+class AssetValue <<(D,orchid)>>
+hide AssetValue
+
+enum AssetValueTypes {
+    CONFIDENCIALITYVALUE
+    INTEGRITYVALUE
+    AVAILABILITYVALUE
+}
+hide AssetValueTypes
+
+class DataProcessingOverview <<(D,orchid)TODO>>
+class DataProcessingPurpose <<(D,orchid)TODO>>
+class LegalBasis <<(D,orchid)TODO>>
+class Organization <<(D,orchid)TODO>>
+class OrganizationRiskProfile <<(D,orchid)TODO>>
+class OrganizationRiskOwner <<(D,orchid)TODO>>
+class Risk <<(D,orchid)>>
+class RiskAnalysis <<(D,orchid)TODO>>
+class RiskAppetite <<(D,orchid)>>
+class RiskAnalysisOwner <<(D,orchid)TODO>>
+class RiskOwner <<(D,orchid)TODO>>
+interface RiskItem
+class RiskTreatment <<(D,orchid)>> {
+    RiskTreatmentStatus
+    RiskTreatmentTypes
+}
+enum RiskTreatmentStatus {
+    EXISTING
+    PLANNED
+    IMPLEMENTED
+}
+hide RiskTreatmentStatus
+
+enum RiskTreatmentTypes {
+    PROBABILITY_RISK_TREATMENT
+    CONSEQUENCE_RISK_TREATMENT
+}
+hide RiskTreatmentTypes
+
+enum SeverityLevels {
+    NONE
+    INSIGNIFICANT
+    LOW
+    MODERATE
+    HIGH
+    EXTREME
+    INVALID
+}
+hide SeverityLevels
+
+class Threat <<(D,orchid)>> {
+    ThreatTypes
+}
+
+class ThreatAgent <<(D,orchid)>>
+enum ThreatAgentType {
+    HUMAN
+    ENVIRONMENTAL
+}
+hide ThreatAgentType
+
+enum ThreatTypes {
+    DELIBERATE
+    ACCIDENTAL
+    ENVIRONMENTAL
+}
+hide ThreatTypes
+
+class Vulnerability <<(D,orchid)>>
+
+'------ Relations --------
+Organization - OrganizationRiskProfile
+Organization o- Organization
+Organization -- DataProcessingOverview
+DataProcessingOverview -- Asset
+Asset -- DataProcessingPurpose
+Asset -- LegalBasis
+OrganizationRiskProfile o-- RiskAnalysis
+OrganizationRiskProfile - OrganizationRiskOwner
+RiskAnalysis o-- Risk
+RiskAnalysis - RiskAnalysisOwner
+OrganizationRiskOwner --|> RiskOwner
+RiskOwner <|--  RiskAnalysisOwner
+Risk o-- Asset
+Risk o-- Threat
+Risk o-- Vulnerability
+Risk o-- RiskTreatment
+Risk - RiskAppetite
+
+Asset ..|> RiskItem
+Vulnerability ..|> RiskItem
+RiskTreatment ..|> RiskItem
+Threat ..|> RiskItem
+
+'Asset -- AssetValue
+Threat -- ThreatAgent
+Threat - ThreatTypes
+
+hide empty members
+@enduml
