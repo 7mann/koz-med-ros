@@ -1,15 +1,44 @@
 @startuml
+title \nKoz-Med-Ros Information Model\n\n
+note as N0
+    <size:16>Class types according to DDD</size>
+    <size:8> </size>
+    <b>A</b> - Aggregate
+    <b>E</b> - Entity
+    <b>F</b> - Factory
+    <b>R</b> - Repository
+    <b>S</b> - Service
+    <b>V</b> - Value Objects
+end note
+note as N1
+    <b>There is a design choice to reduce number of
+    <b>many-to-many and bi-directional releationships.
+
+    To cite Eric Evans in Domain-driven Design:
+    <i>In real life there are lots of mant-to-many
+    <i>associations, and a great number of them are
+    <i>naturally bidirectional.
+    <i>The same tends to be true of early forms of
+    <i>a model as we brainstorm and explore the domain.
+    <i>But these general associations complicate
+    <i>implementation and maintenance.
+    <i>Further, they communicate very little about the
+    <i>true nature of the releationship.</i>
+end note
+
 skinparam class {
     BackgroundColor<<TODO>> Pink
     BorderColor<<TODO>> Tomato
 }
 skinparam stereotypeCBackgroundColor<<TODO>> LightGray
 
-class Asset <<(D,orchid)>> {
+class Asset <<(V,orchid)>> {
   AssetValue
   Classification
 }
-class AssetValue <<(D,orchid)>>
+note left of Asset : An Asset can be used by\nseveral DataProcessing,\nbut the model choose to\nsimplify this aspect
+
+class AssetValue <<(V,orchid)>>
 hide AssetValue
 
 enum AssetValueTypes {
@@ -19,19 +48,35 @@ enum AssetValueTypes {
 }
 hide AssetValueTypes
 
-class DataProcessingOverview <<(D,orchid)TODO>>
-class DataProcessingPurpose <<(D,orchid)TODO>>
-class LegalBasis <<(D,orchid)TODO>>
-class Organization <<(D,orchid)TODO>>
-class OrganizationRiskProfile <<(D,orchid)TODO>>
-class OrganizationRiskOwner <<(D,orchid)TODO>>
-class Risk <<(D,orchid)>>
-class RiskAnalysis <<(D,orchid)TODO>>
-class RiskAppetite <<(D,orchid)>>
-class RiskAnalysisOwner <<(D,orchid)TODO>>
-class RiskOwner <<(D,orchid)TODO>>
+class DataProcessingOverview <<(E,orchid)TODO>>
+class DataProcessing <<(E,orchid)TODO>>
+{
+    DataProcessingPurpose
+    LegalBasis
+}
+note right: Implementing\nDataProcessingPurpose\nand LegalBasis as\nproperties is a model\nsimplification
+
+class DataProcessingPurpose <<(V,orchid)TODO>>
+hide DataProcessingPurpose
+class LegalBasis <<(V,orchid)TODO>>
+hide LegalBasis
+class Organization <<(A,orchid)TODO>>
+class OrganizationRiskProfile <<(A,orchid)TODO>>
+class OrganizationRiskOwner <<(V,orchid)TODO>>
+class RiskAnalysisSubject <<(A,orchid)TODO>>
+note left of RiskAnalysisSubject : The subject matter\nof the risk analysis.\nE.g a software product
+class Risk <<(E,orchid)>>
+{
+    RiskAppetite
+}
+class RiskAnalysis <<(E,orchid)TODO>>
+class RiskAppetite <<(V,orchid)>>
+hide RiskAppetite
+
+class RiskAnalysisOwner <<(V,orchid)TODO>>
+class RiskOwner <<(V,orchid)TODO>>
 interface RiskItem
-class RiskTreatment <<(D,orchid)>> {
+class RiskTreatment <<(V,orchid)>> {
     RiskTreatmentStatus
     RiskTreatmentTypes
 }
@@ -59,11 +104,14 @@ enum SeverityLevels {
 }
 hide SeverityLevels
 
-class Threat <<(D,orchid)>> {
+class Threat <<(V,orchid)>> {
     ThreatTypes
+    ThreatAgent
 }
+note bottom: Implementing ThreatTypes\nand ThreatAgent as properties\nis a model simplification
 
-class ThreatAgent <<(D,orchid)>>
+class ThreatAgent <<(V,orchid)>>
+hide ThreatAgent
 enum ThreatAgentType {
     HUMAN
     ENVIRONMENTAL
@@ -77,35 +125,46 @@ enum ThreatTypes {
 }
 hide ThreatTypes
 
-class Vulnerability <<(D,orchid)>>
+class Vulnerability <<(V,orchid)>>
 
 '------ Relations --------
-Organization - OrganizationRiskProfile
-Organization o- Organization
-Organization -- DataProcessingOverview
-DataProcessingOverview -- Asset
-Asset -- DataProcessingPurpose
-Asset -- LegalBasis
-OrganizationRiskProfile o-- RiskAnalysis
-OrganizationRiskProfile - OrganizationRiskOwner
-RiskAnalysis o-- Risk
-RiskAnalysis - RiskAnalysisOwner
-OrganizationRiskOwner --|> RiskOwner
-RiskOwner <|--  RiskAnalysisOwner
-Risk o-- Asset
-Risk o-- Threat
-Risk o-- Vulnerability
-Risk o-- RiskTreatment
-Risk - RiskAppetite
+Organization "1" -> "1" OrganizationRiskProfile : has a >
+Organization o--> Organization
+note left of Organization : An Organization can\nhave sub-Organizations
 
-Asset ..|> RiskItem
-Vulnerability ..|> RiskItem
-RiskTreatment ..|> RiskItem
-Threat ..|> RiskItem
+Organization "1" --> "1" DataProcessingOverview : has a >
+DataProcessingOverview "1" --> "*" DataProcessing : contains >
+DataProcessing "1" --> "*" Asset : contains >
 
-'Asset -- AssetValue
-Threat -- ThreatAgent
-Threat - ThreatTypes
+OrganizationRiskProfile "1" o--> "*" RiskAnalysisSubject : contains\nseveral >
+RiskAnalysisSubject "1" o--> "*" RiskAnalysis : has >
+OrganizationRiskProfile  -> OrganizationRiskOwner : has an >
+RiskAnalysis "1" o--> "*" RiskAnalysis
+note bottom on link :The recursive relationship\nis to enable analysis\nbased on collection of\nother analysis
+RiskAnalysis "1" o--> "*" Risk : analyze >
+RiskAnalysis -> RiskAnalysisOwner : has a >
+OrganizationRiskOwner ---|> RiskOwner : is a >
+RiskOwner <|--  RiskAnalysisOwner :is a <
+Risk "1" o--> "*" Asset :contains >
+Risk "1" o--> "*" Threat :threaten by >
+note as N2
+    Should this relation
+    be present?
+    Yes, to complete the
+    threat landscape
+end note
+Risk . N2
+N2 . Threat
+
+Risk "1" o--> "*" Vulnerability :exposed by >
+Risk "1" o--> "*" RiskTreatment :reduced by >
+
+Asset ..|> RiskItem :is a >
+Vulnerability ..|> RiskItem :is a >
+RiskTreatment ..|> RiskItem :is a >
+Threat ..|> RiskItem :is a >
+
+Vulnerability "0..1" -right> "0..*" Threat : exploited by >
 
 hide empty members
 @enduml

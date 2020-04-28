@@ -1,0 +1,19 @@
+@startuml
+title \nLanguage of Model-Driven Design\n
+(Model-Driven Design) ---> (Services) :express model\n with
+(Model-Driven Design) ---> (Entities) :express model\n with
+(Model-Driven Design) ---> (Value Objects) :express model\n with
+(Model-Driven Design) ---> (Layered Architecture) :isolate domain\n with
+(Model-Driven Design) ..> (Smart UI) :mutally exclusive\nchoices
+
+(Entities) ---> (Repositories) :access with
+(Entities) ---> (Aggregates) :maintainn integrity\n with
+(Entities) ---> (Aggregates) :act as\nroot of
+(Entities) ---> (Factories) :encapsulate\nwith
+
+(Value Objects) --> (Aggregates) :encapsulate\nwith
+(Value Objects) --> (Factories) :encapsulate with
+
+(Aggregates) --> (Repositories) :access with
+(Aggregates) --> (Factories) :encapsulate\nwith
+@enduml

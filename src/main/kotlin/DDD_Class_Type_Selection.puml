@@ -1,0 +1,33 @@
+@startuml
+(*)  -->[New Class] "Is this class used in a discussion with\nanyone other than a dev on the team?"
+If "" then
+-Left> [Yes] "Domain"
+else
+--> [No] "Would the concept of this class\nexist if done manually?"
+Endif
+if "" then
+-Left> [Yes] "Domain"
+else
+--> [No] "Does this class describe a use case?"
+Endif
+if "" then
+-Left> [Yes] "Application"
+else
+--> [No] "Is this class externally facing?"
+Endif
+if "" then
+-Left> [Yes] "UI"
+else
+--> [No] "Does this class use i/o?"
+Endif
+if "" then
+-Left> [Yes] "Infrastructure"
+else
+--> [No] "Does this class use any\nthird party packages?"
+Endif
+if "" then
+--> [Yes] "Infrastructure"
+else
+--> [No] (*)
+Endif
+@enduml
