@@ -1,5 +1,11 @@
 @startuml
 title \nKoz-Med-Ros Information Model\n\n
+skinparam class {
+    BackgroundColor<<TODO>> Pink
+    BorderColor<<TODO>> Tomato
+}
+skinparam stereotypeCBackgroundColor<<TODO>> LightGray
+
 note as N0
     <size:16>Class types according to DDD</size>
     <size:8> </size>
@@ -26,19 +32,13 @@ note as N1
     <i>true nature of the releationship.</i>
 end note
 
-skinparam class {
-    BackgroundColor<<TODO>> Pink
-    BorderColor<<TODO>> Tomato
-}
-skinparam stereotypeCBackgroundColor<<TODO>> LightGray
-
-class Asset <<(V,orchid)>> {
+class Asset <<(V,DeepSkyBlue)>> {
   AssetValue
   Classification
 }
-note left of Asset : An Asset can be used by\nseveral DataProcessing,\nbut the model choose to\nsimplify this aspect
+note bottom of Asset : An Asset can be used by\nseveral DataProcessing,\nbut the model choose to\nsimplify this aspect
 
-class AssetValue <<(V,orchid)>>
+class AssetValue <<(V,DeepSkyBlue)>>
 hide AssetValue
 
 enum AssetValueTypes {
@@ -48,35 +48,40 @@ enum AssetValueTypes {
 }
 hide AssetValueTypes
 
-class DataProcessingOverview <<(E,orchid)TODO>>
-class DataProcessing <<(E,orchid)TODO>>
+class DataProcessingOverview <<(E,plum)TODO>>
+class DataProcessing <<(E,plum)TODO>>
 {
     DataProcessingPurpose
     LegalBasis
 }
 note right: Implementing\nDataProcessingPurpose\nand LegalBasis as\nproperties is a model\nsimplification
 
-class DataProcessingPurpose <<(V,orchid)TODO>>
+class DataProcessingPurpose <<(V,DeepSkyBlue)TODO>>
 hide DataProcessingPurpose
-class LegalBasis <<(V,orchid)TODO>>
+class LegalBasis <<(V,DeepSkyBlue)TODO>>
 hide LegalBasis
-class Organization <<(A,orchid)TODO>>
-class OrganizationRiskProfile <<(A,orchid)TODO>>
-class OrganizationRiskOwner <<(V,orchid)TODO>>
-class RiskAnalysisSubject <<(A,orchid)TODO>>
+class Organization <<(A,Palegreen)TODO>>
+class OrganizationRiskProfile <<(A,Palegreen)TODO>>
+class OrganizationRiskOwner <<(V,DeepSkyBlue)TODO>>
+class RiskAnalysisSubject <<(A,Palegreen)TODO>>
 note left of RiskAnalysisSubject : The subject matter\nof the risk analysis.\nE.g a software product
-class Risk <<(E,orchid)>>
+class Risk <<(E,plum)>>
 {
     RiskAppetite
 }
-class RiskAnalysis <<(E,orchid)TODO>>
-class RiskAppetite <<(V,orchid)>>
+class RiskScenario <<(V,DeepSkyBlue)>>
+class RiskScenarioLibrary <<(V,DeepSkyBlue)TODO>>
+note right: A library containing risk scenarios\ will simplify and\nmake risk analysis more relevant
+
+class RiskScenarioLibraryRepository <<(R,Yellow)TODO>>
+class RiskAnalysis <<(E,plum)TODO>>
+class RiskAppetite <<(V,DeepSkyBlue)>>
 hide RiskAppetite
 
-class RiskAnalysisOwner <<(V,orchid)TODO>>
-class RiskOwner <<(V,orchid)TODO>>
+class RiskAnalysisOwner <<(V,DeepSkyBlue)TODO>>
+class RiskOwner <<(V,DeepSkyBlue)TODO>>
 interface RiskItem
-class RiskTreatment <<(V,orchid)>> {
+class RiskTreatment <<(V,DeepSkyBlue)>> {
     RiskTreatmentStatus
     RiskTreatmentTypes
 }
@@ -104,13 +109,20 @@ enum SeverityLevels {
 }
 hide SeverityLevels
 
-class Threat <<(V,orchid)>> {
+class Threat <<(V,DeepSkyBlue)>> {
     ThreatTypes
     ThreatAgent
 }
 note bottom: Implementing ThreatTypes\nand ThreatAgent as properties\nis a model simplification
 
-class ThreatAgent <<(V,orchid)>>
+class ThreatLibrary <<(V,DeepSkyBlue)TODO>> {
+    Threat
+    ThreatAgent
+    Vulnerability
+}
+note bottom: A library containing threats, \nthreat agents, and exploted\nvulnerabilities will simplify and\nmake risk analysis more relevant
+
+class ThreatAgent <<(V,DeepSkyBlue)>>
 hide ThreatAgent
 enum ThreatAgentType {
     HUMAN
@@ -125,7 +137,9 @@ enum ThreatTypes {
 }
 hide ThreatTypes
 
-class Vulnerability <<(V,orchid)>>
+class Vulnerability <<(V,DeepSkyBlue)>> {
+    exploitedByVulnerability
+}
 
 '------ Relations --------
 Organization "1" -> "1" OrganizationRiskProfile : has a >
@@ -158,13 +172,35 @@ N2 . Threat
 
 Risk "1" o--> "*" Vulnerability :exposed by >
 Risk "1" o--> "*" RiskTreatment :reduced by >
+Risk "1" o--> "1" RiskScenario
+RiskScenario <.. RiskScenarioLibrary : provides <
+RiskScenarioLibrary "1" ..> "1" RiskScenarioLibraryRepository : reads/\nwrites >
+
 
 Asset ..|> RiskItem :is a >
 Vulnerability ..|> RiskItem :is a >
 RiskTreatment ..|> RiskItem :is a >
 Threat ..|> RiskItem :is a >
+Threat <--o ThreatLibrary : provides <
+Vulnerability <--o ThreatLibrary : provides <
 
-Vulnerability "0..1" -right> "0..*" Threat : exploited by >
+Vulnerability "0..*" -left- "0..1" Threat : exploited by >
+
+newpage
+title \nKoz-Med-Ros Information Model - Factories and related objects\n\n
+skinparam class {
+    BackgroundColor<<TODO>> Pink
+    BorderColor<<TODO>> Tomato
+}
+skinparam stereotypeCBackgroundColor<<TODO>> LightGray
+class RiskAnalysisFactory <<(F,Gold)>>
+class Risk <<(E,plum)>>
+class RiskAnalysis <<(E,plum)TODO>>
+
+RiskAnalysisFactory .. RiskAnalysis : creates >
+RiskAnalysisFactory .. Risk : populates >
+
+
 
 hide empty members
 @enduml
