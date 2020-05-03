@@ -36,7 +36,7 @@ class Asset <<(V,DeepSkyBlue)>> {
   AssetValue
   Classification
 }
-note bottom of Asset : An Asset can be used by\nseveral DataProcessing,\nbut the model choose to\nsimplify this aspect
+note left of Asset : An Asset can be used by\nseveral DataProcessing,\nbut the model choose to\nsimplify this aspect
 
 class AssetValue <<(V,DeepSkyBlue)>>
 hide AssetValue
@@ -113,15 +113,17 @@ class Threat <<(V,DeepSkyBlue)>> {
     ThreatTypes
     ThreatAgent
 }
-note bottom: Implementing ThreatTypes\nand ThreatAgent as properties\nis a model simplification
+note left: Implementing ThreatTypes\nand ThreatAgent as properties\nis a model simplification
 
 class ThreatLibrary <<(V,DeepSkyBlue)TODO>> {
+    RiskTreatment
     Threat
     ThreatAgent
     Vulnerability
 }
-note bottom: A library containing threats, \nthreat agents, and exploted\nvulnerabilities will simplify and\nmake risk analysis more relevant
+note left: A library containing threats, \nthreat agents, and exploted\nvulnerabilities will simplify and\nmake risk analysis more relevant
 
+class ThreatLibraryRepository <<(R,YELLOW)TODO>>
 class ThreatAgent <<(V,DeepSkyBlue)>>
 hide ThreatAgent
 enum ThreatAgentType {
@@ -181,8 +183,10 @@ Asset ..|> RiskItem :is a >
 Vulnerability ..|> RiskItem :is a >
 RiskTreatment ..|> RiskItem :is a >
 Threat ..|> RiskItem :is a >
-Threat <--o ThreatLibrary : provides <
-Vulnerability <--o ThreatLibrary : provides <
+Threat <... ThreatLibrary : provides <
+Vulnerability <... ThreatLibrary : provides <
+RiskTreatment <... ThreatLibrary : provides <
+ThreatLibrary "1" ..> "1" ThreatLibraryRepository : reads/\nwrites >
 
 Vulnerability "0..*" -left- "0..1" Threat : exploited by >
 
