@@ -7,8 +7,7 @@ import org.apache.logging.log4j.LogManager
 import java.io.BufferedReader
 import java.io.File
 
-
-class FileRiskScenarioLibraryRepository(val path: String, val fileName: String) : RiskScenarioLibraryRepository {
+class FileThreatLibraryRepository(val path: String, val fileName: String) : ThreatLibraryRepository {
     private val logger = LogManager.getLogger(javaClass)
     private val fileNameAndPath: String
 
@@ -22,7 +21,7 @@ class FileRiskScenarioLibraryRepository(val path: String, val fileName: String) 
         fileNameAndPath = "$path/$fileName"
     }
 
-    override fun readRiskScenarios(): List<RiskScenario> {
+    override fun readThreatAgents(): List<ThreatAgent> {
         if (!File(fileNameAndPath).exists()) {
             val errorMessage = "File ${fileNameAndPath} does not exist!"
             logger.error(errorMessage)
@@ -32,18 +31,18 @@ class FileRiskScenarioLibraryRepository(val path: String, val fileName: String) 
         val gson = GsonBuilder().setPrettyPrinting().create()
         val bufferedReader: BufferedReader = File(fileNameAndPath).bufferedReader()
         val inputString = bufferedReader.use { it.readText() }
-        val arrayRiskScenarioType = object : TypeToken<List<RiskScenario>>() {}.type
-        val riskScenarioList: List<RiskScenario> = gson.fromJson(inputString, arrayRiskScenarioType)
-        logger.debug(" ${riskScenarioList.size} RiskScenarios read from file ${fileNameAndPath}")
-        return riskScenarioList
+        val arrayThreatAgentType = object : TypeToken<List<ThreatAgent>>() {}.type
+        val threatAgentList: List<ThreatAgent> = gson.fromJson(inputString, arrayThreatAgentType)
+        logger.debug(" ${threatAgentList.size} ThreatAgents read from file ${fileNameAndPath}")
+        return threatAgentList
     }
 
-    override fun writeRiskScenarios(riskScenarios: List<RiskScenario>) {
-        if (riskScenarios.isNullOrEmpty()) {
-            throw IllegalArgumentException("RiskScenarioList can not be null or empty!")
+    override fun writeThreatAgents(threatAgents: List<ThreatAgent>) {
+        if (threatAgents.isNullOrEmpty()) {
+            throw IllegalArgumentException("ThreatAgent list can not be null or empty!")
         }
         val gson: Gson = GsonBuilder().setPrettyPrinting().create()
-        val jsonString: String = gson.toJson(riskScenarios)
+        val jsonString: String = gson.toJson(threatAgents)
         val file = File(fileNameAndPath)
         file.writeText(jsonString)
     }

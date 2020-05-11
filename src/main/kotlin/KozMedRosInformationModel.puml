@@ -70,10 +70,10 @@ class Risk <<(E,plum)>>
     RiskAppetite
 }
 class RiskScenario <<(V,DeepSkyBlue)>>
-class RiskScenarioLibrary <<(V,DeepSkyBlue)TODO>>
+class RiskScenarioLibrary <<(V,DeepSkyBlue)>>
 note right: A library containing risk scenarios\ will simplify and\nmake risk analysis more relevant
 
-class RiskScenarioLibraryRepository <<(R,Yellow)TODO>>
+class RiskScenarioLibraryRepository <<(R,Yellow)>>
 class RiskAnalysis <<(E,plum)TODO>>
 class RiskAppetite <<(V,DeepSkyBlue)>>
 hide RiskAppetite
