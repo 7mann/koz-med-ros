@@ -18,12 +18,12 @@ class FileThreatLibraryRepository(val path: String, val fileName: String) : Thre
         if (fileName.isBlank()) {
             throw IllegalArgumentException("File name must be present!")
         }
-        fileNameAndPath = "$path/$fileName"
+        this.fileNameAndPath = "$path/$fileName"
     }
 
     override fun readThreatAgents(): List<ThreatAgent> {
-        if (!File(fileNameAndPath).exists()) {
-            val errorMessage = "File ${fileNameAndPath} does not exist!"
+        if (!File(this.fileNameAndPath).exists()) {
+            val errorMessage = "File $fileNameAndPath does not exist!"
             logger.error(errorMessage)
             throw IllegalArgumentException(errorMessage)
         }
@@ -33,7 +33,7 @@ class FileThreatLibraryRepository(val path: String, val fileName: String) : Thre
         val inputString = bufferedReader.use { it.readText() }
         val arrayThreatAgentType = object : TypeToken<List<ThreatAgent>>() {}.type
         val threatAgentList: List<ThreatAgent> = gson.fromJson(inputString, arrayThreatAgentType)
-        logger.debug(" ${threatAgentList.size} ThreatAgents read from file ${fileNameAndPath}")
+        logger.debug(" ${threatAgentList.size} ThreatAgents read from file $fileNameAndPath")
         return threatAgentList
     }
 
