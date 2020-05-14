@@ -1,50 +1,56 @@
 [
   {
-    "ThreatAgent": "Cyberkriminelle",
-    "Description": "Hovedsakelig profitdrevet og representerer en langsiktig, global, og vanlig trussel. De går målrettet etter data for å selge, kreve løsepenger eller på annen måte utnytte til økonomisk gevinst. Cyberkriminelle kan jobbe enkeltvis eller i grupper for å oppnå sine formål.",
-    "Motivation": "Økonomisk gevinst eller kriminell anseelse",
-    "Affiliation": "Individ eller gruppe",
-    "Threats": "Phishing, social engineering, business email compromise (BEC) scams, botnets, password attacks, exploit kits, malware, ransomware",
-    "Source": "CIS"
+    "threatAgentType": "HUMAN",
+    "threatAgent": "Cyberkriminelle",
+    "description": "Hovedsakelig profitdrevet og representerer en langsiktig, global, og vanlig trussel. De går målrettet etter data for å selge, kreve løsepenger eller på annen måte utnytte til økonomisk gevinst. Cyberkriminelle kan jobbe enkeltvis eller i grupper for å oppnå sine formål.",
+    "motivation": "Økonomisk gevinst eller kriminell anseelse",
+    "affiliation": "Individ eller gruppe",
+    "threats": "Phishing, social engineering, business email compromise (BEC) scams, botnets, password attacks, exploit kits, malware, ransomware",
+    "source": "CIS"
   },
   {
-    "ThreatAgent": "Innsidere",
-    "Description": "Nåværende eller tidligere ansatte, kontraktører, eller andre partnere som har tilgang til organisasjonens nettverk, systemer eller data. Ondsinnede innsidere utnytter eller misbruker med hensikt tilganger som negativt påvirker konfidensialiteten, integriteten eller tilgjengeligheten til organisasjonens informasjon eller informasjonssystemer. Dette skiller seg fra uvitende innsidere som utilsiktet forårsaker skade på organisasjonens informasjonssystemer gjennom sine handlinger, for eksempel å klikke på ondsinnede lenker i en phishing-e-post.",
-    "Motivation": "Økonomisk gevinst eller hevn",
-    "Affiliation": "Current or former employee, contractor, or other partner who has authorized access.",
-    "Threats": "Data exfiltration or privilege misuse",
-    "Source": "CIS"
+    "threatAgentType": "HUMAN",
+    "threatAgent": "Innsidere",
+    "description": "Nåværende eller tidligere ansatte, kontraktører, eller andre partnere som har tilgang til organisasjonens nettverk, systemer eller data. Ondsinnede innsidere utnytter eller misbruker med hensikt tilganger som negativt påvirker konfidensialiteten, integriteten eller tilgjengeligheten til organisasjonens informasjon eller informasjonssystemer. Dette skiller seg fra uvitende innsidere som utilsiktet forårsaker skade på organisasjonens informasjonssystemer gjennom sine handlinger, for eksempel å klikke på ondsinnede lenker i en phishing-e-post.",
+    "motivation": "Økonomisk gevinst eller hevn",
+    "affiliation": "Current or former employee, contractor, or other partner who has authorized access.",
+    "threats": "Data exfiltration or privilege misuse",
+    "source": "CIS"
   },
   {
-    "ThreatAgent": "Fremmede stater",
-    "Description": "Jobber aggressivt og målrettet mot offentlig og privat sektor får å få vedvarende tilgang til nettverk for å kompromittere, stjele, endre eller ødelegge informasjon. De kan være en del av et statsapparat eller motta støtte, finansiering eller teknisk hjelp fra en nasjonalstat. \"Fremmede stater\" har blitt brukt om hverandre med Advanced Persistent Threat (APT), men APT refererer til en type aktivitet utført av forskjellige aktører.",
-    "Motivation": "Spionasje, politisk-, økonomisk- eller militær vinning",
-    "Affiliation": "Nation-states or organizations with nation-state ties",
-    "Threats": "Spear-phishing password attacks, social engineering, direct compromise, data exfiltration, remote access trojans, and destructive malware.",
-    "Source": "CIS"
+    "threatAgentType": "HUMAN",
+    "threatAgent": "Fremmede stater",
+    "description": "Jobber aggressivt og målrettet mot offentlig og privat sektor får å få vedvarende tilgang til nettverk for å kompromittere, stjele, endre eller ødelegge informasjon. De kan være en del av et statsapparat eller motta støtte, finansiering eller teknisk hjelp fra en nasjonalstat. \"Fremmede stater\" har blitt brukt om hverandre med Advanced Persistent Threat (APT), men APT refererer til en type aktivitet utført av forskjellige aktører.",
+    "motivation": "Spionasje, politisk-, økonomisk- eller militær vinning",
+    "affiliation": "Nation-states or organizations with nation-state ties",
+    "threats": "Spear-phishing password attacks, social engineering, direct compromise, data exfiltration, remote access trojans, and destructive malware.",
+    "source": "CIS"
   },
   {
-    "ThreatAgent": "Hacktivister",
-    "Description": "Dette er cyberkriminelle med en politisk intensjon. De angriper for å nå frem med sitt politiske budskap, og leter ofte etter svakheter som kan utnyttes for å fremme eget budskap. Eksempler på dette har vært skadeverk på websider hvor innhold på uskyldige tredjeparters nettsider blir endret.",
-    "Motivation": "Politisk, sosial eller ideologisk",
-    "Affiliation": "Non-governmental individuals or organizations",
-    "Threats": "DDoS attacks, doxing, website defacements",
-    "Source": "CIS"
+    "threatAgentType": "HUMAN",
+    "threatAgent": "Hacktivister",
+    "description": "Dette er cyberkriminelle med en politisk intensjon. De angriper for å nå frem med sitt politiske budskap, og leter ofte etter svakheter som kan utnyttes for å fremme eget budskap. Eksempler på dette har vært skadeverk på websider hvor innhold på uskyldige tredjeparters nettsider blir endret.",
+    "motivation": "Politisk, sosial eller ideologisk",
+    "affiliation": "Non-governmental individuals or organizations",
+    "threats": "DDoS attacks, doxing, website defacements",
+    "source": "CIS"
   },
   {
-    "ThreatAgent": "Terrorister",
-    "Description": "Vanligvis forstyrrende eller trakasserende nettaktivitet. Terrororganisasjonens bruker primært internett for kommunikasjon og rekruttering.",
-    "Motivation": "Politisk eller ideologisk vinning. Mulig for økonomisk gevinst, spionasje eller som propaganda",
-    "Affiliation": "Individuals, organizations, or nation-states",
-    "Threats": "Defacements and claimed leaks",
-    "Source": "CIS"
+    "threatAgentType": "HUMAN",
+    "threatAgent": "Terrorister",
+    "description": "Vanligvis forstyrrende eller trakasserende nettaktivitet. Terrororganisasjonens bruker primært internett for kommunikasjon og rekruttering.",
+    "motivation": "Politisk eller ideologisk vinning. Mulig for økonomisk gevinst, spionasje eller som propaganda",
+    "affiliation": "Individuals, organizations, or nation-states",
+    "threats": "Defacements and claimed leaks",
+    "source": "CIS"
   },
   {
-    "ThreatAgent": "Utviklere",
-    "Description": "Er drevet av å gjøre en god jobb, men har også ofte tilgang til kritiske ressurser som produksjonsmiljøer. Kan også introdusere uønskede sårbarheter i prgramvareløsninger. ",
-    "Motivation": "",
-    "Affiliation": "",
-    "Threats": "",
-    "Source": ""
+    "threatAgentType": "HUMAN",
+    "threatAgent": "Utviklere",
+    "description": "Er drevet av å gjøre en god jobb, men har også ofte tilgang til kritiske ressurser som produksjonsmiljøer. Kan også introdusere uønskede sårbarheter i prgramvareløsninger. ",
+    "motivation": "",
+    "affiliation": "",
+    "threats": "",
+    "source": ""
   }
 ]
