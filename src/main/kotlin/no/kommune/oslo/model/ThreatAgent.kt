@@ -6,6 +6,6 @@ data class ThreatAgent(
         val description: String,
         val motivation: String,
         val affiliation: String,
-        val threats: String,
+        val threats: List<Threat>,
         val source: String
 )
