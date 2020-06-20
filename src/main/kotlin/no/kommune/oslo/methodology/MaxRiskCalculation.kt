@@ -1,6 +1,10 @@
 package no.kommune.oslo.methodology
 
-import no.kommune.oslo.model.*
+import no.kommune.oslo.model.Asset
+import no.kommune.oslo.model.Risk
+import no.kommune.oslo.model.RiskItem
+import no.kommune.oslo.model.Vulnerability
+import no.kommune.oslo.model.enums.SeverityLevel
 import org.apache.logging.log4j.LogManager
 
 
@@ -16,7 +20,7 @@ object MaxRiskCalculation : RiskCalculation {
      * @param assets list of assets to calculate damage potential
      * @param weightFactorPercentage percentage of asset value to add based on number of assets. Note! Defaults from interface method signature
      */
-    override fun calculateDamagePotential(assets: List<Asset>, weightFactorPercentage: Int): SeverityLevels {
+    override fun calculateDamagePotential(assets: List<Asset>, weightFactorPercentage: Int): SeverityLevel {
         if (assets.isEmpty() || weightFactorPercentage < 0) {
             logger.error("calculateDamagePotential is called with illegal parameters! Asset list parameter can not be of size 0 or weightFactorPercentage < 0.")
             throw IllegalArgumentException("calculateDamagePotential is called with illegal parameters! Asset list parameter can not be of size 0 or weightFactorPercentage < 0!")
@@ -33,49 +37,30 @@ object MaxRiskCalculation : RiskCalculation {
      * @param threats list of threats to calculate damage potential
      * @param weightFactorPercentage percentage of asset value to add based on number of assets. Note! Defaults from interface method signature
      */
-    override fun calculateThreatPresence(threats: List<Threat>, weightFactorPercentage: Int): SeverityLevels {
-        if (threats.isEmpty() || weightFactorPercentage < 0) {
-            logger.error("calculateThreatPresence is called with illegal parameters! Threat list parameter can not be of size 0 or weightFactorPercentage < 0.")
+    override fun calculateThreatPresence(risk: Risk, weightFactorPercentage: Int): SeverityLevel {
+        if (risk.threatPresenceList.isEmpty() || weightFactorPercentage < 0) {
+            logger.error("calculateThreatPresence is called with illegal parameters! ThreatPresence list parameter can not be of size 0 or weightFactorPercentage < 0.")
             throw IllegalArgumentException("Threat list can not be null or of size 0!")
         }
-        return calculateRiskItemsValue(threats, weightFactorPercentage)
+        return calculateRiskItemsValue(risk.threatPresenceList, weightFactorPercentage)
     }
 
     /**
      * Existing vulnerability is vulnerability potential minus if any existing threat treatments
      */
-    override fun calculateExistingVulnerability(vulnerabilities: List<Vulnerability>, weightFactorPercentage: Int): SeverityLevels {
+    override fun calculateExistingVulnerability(vulnerabilities: List<Vulnerability>, weightFactorPercentage: Int): SeverityLevel {
         if (vulnerabilities.isEmpty() || weightFactorPercentage < 0) {
             logger.error("calculateExistingVulnerability is called with illegal parameters! Vulnerability list parameter can not be of size 0 or weightFactorPercentage < 0!")
             throw IllegalArgumentException("calculateExistingVulnerability is called with illegal parameters! Vulnerability list parameter can not be of size 0 or weightFactorPercentage < 0!")
         }
 
-        // Find vulnerabilities that has existing risk treatments
-        val vulnerabilitiesWithRiskTreatments = vulnerabilities.filter { it.riskTreatments.isNotEmpty() }
-        var existingRiskTreatments: MutableList<RiskTreatment> = mutableListOf()
-
-        for (vulnerability in vulnerabilitiesWithRiskTreatments) {
-            existingRiskTreatments.addAll(vulnerability.riskTreatments.filter { it.riskTreatmentStatus == RiskTreatmentStatus.EXISTING })
-        }
-
-        // Calculate vulnerability score for the list of existing risk treatments
-        val existingRiskTreatmentValue = calculateRiskItemsValue(existingRiskTreatments, weightFactorPercentage)
-        logger.debug("existingRiskTreatmentValue: $existingRiskTreatmentValue")
-
-        // Find vulnerabilities without or with future risk treatments
-        // Calculate vulnerability score for them
-        // Calculate total score. Implement weighting of different group size when adding up
-//        vulnerabilities
-//        for (vulnerability: Vulnerability in vulnerabilities) {
-//
-//        }
         return calculateRiskItemsValue(vulnerabilities, weightFactorPercentage)
     }
 
     /**
      * Future vulnerability is vulnerability potential minus if any future threat treatments
      */
-    override fun calculateFutureVulnerability(vulnerabilities: List<Vulnerability>, weightFactorPercentage: Int): SeverityLevels {
+    override fun calculateFutureVulnerability(vulnerabilities: List<Vulnerability>, weightFactorPercentage: Int): SeverityLevel {
         if (vulnerabilities.isEmpty() || weightFactorPercentage < 0) {
             logger.error("calculateFutureVulnerability is called with illegal parameters! Vulnerability list parameter can not be of size 0 or weightFactorPercentage < 0!")
             throw IllegalArgumentException("calculateFutureVulnerability is called with illegal parameters! Vulnerability list parameter can not be of size 0 or weightFactorPercentage < 0!")
@@ -84,7 +69,7 @@ object MaxRiskCalculation : RiskCalculation {
     }
 
 
-    private fun calculateRiskItemsValue(riskItems: List<RiskItem>, weightFactorPercentage: Int): SeverityLevels {
+    private fun calculateRiskItemsValue(riskItems: List<RiskItem>, weightFactorPercentage: Int): SeverityLevel {
         var maxRiskItem: RiskItem = riskItems[0]
         for (riskItem: RiskItem in riskItems) {
             if (riskItem.getSeverityLevel() > maxRiskItem.getSeverityLevel()) {
@@ -95,9 +80,9 @@ object MaxRiskCalculation : RiskCalculation {
         logger.debug("Calculated additional weight: $additionalWeight")
         var maxRiskItemValueWithWeight = maxRiskItem.getSeverityLevel().severityLevelValue + additionalWeight //Round to nearest 100
         logger.debug("maxRiskItemValueWithWeight with additional weight: $maxRiskItemValueWithWeight")
-        maxRiskItemValueWithWeight = SeverityLevels.roundSeverityLevel(maxRiskItemValueWithWeight).severityLevelValue
+        maxRiskItemValueWithWeight = SeverityLevel.roundSeverityLevel(maxRiskItemValueWithWeight).severityLevelValue
         logger.debug("maxRiskItemValueWithWeight rounded to closest 100: $maxRiskItemValueWithWeight")
-        return SeverityLevels.getByValue(maxRiskItemValueWithWeight)
+        return SeverityLevel.getByValue(maxRiskItemValueWithWeight)
     }
 
 }

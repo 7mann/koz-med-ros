@@ -1,4 +1,4 @@
-package no.kommune.oslo.model
+package no.kommune.oslo.model.repository
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder

@@ -1,6 +1,6 @@
-package no.kommune.oslo.model
+package no.kommune.oslo.model.enums
 
-enum class SeverityLevels(val severityLevelValue: Int) {
+enum class SeverityLevel(val severityLevelValue: Int) {
     // Severity levels is in hundreds to have the possibility add some granularity
     NONE(severityLevelValue = 0),
     INSIGNIFICANT(severityLevelValue = 100),
@@ -11,12 +11,12 @@ enum class SeverityLevels(val severityLevelValue: Int) {
     INVALID(severityLevelValue = -1);
 
     companion object {
-        private val severityValues: Array<SeverityLevels> = values()
-        fun getByValue(numberValue: Int): SeverityLevels {
+        private val severityValues: Array<SeverityLevel> = values()
+        fun getByValue(numberValue: Int): SeverityLevel {
             return severityValues.firstOrNull { it.severityLevelValue == numberValue } ?: return INVALID
         }
 
-        fun roundSeverityLevel(severityLevelToRound: Int): SeverityLevels {
+        fun roundSeverityLevel(severityLevelToRound: Int): SeverityLevel {
             var roundedSeverityLevel = severityLevelToRound
             roundedSeverityLevel = (roundedSeverityLevel + (roundedSeverityLevel % 100)) - (roundedSeverityLevel + roundedSeverityLevel % 100) % 100 // Not very elegant but modulus number theory is rusty
             if (roundedSeverityLevel > EXTREME.severityLevelValue) { // No legal value above EXTREME

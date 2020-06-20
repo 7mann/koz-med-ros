@@ -36,7 +36,7 @@ class Asset <<(V,DeepSkyBlue)>> {
   AssetValue
   Classification
 }
-note left of Asset : An Asset can be used by\nseveral DataProcessing,\nbut the model choose to\nsimplify this aspect
+'note left of Asset : An Asset can be used by\nseveral DataProcessing,\nbut the model choose to\nsimplify this aspect
 
 class AssetValue <<(V,DeepSkyBlue)>>
 hide AssetValue
@@ -54,7 +54,7 @@ class DataProcessing <<(E,plum)TODO>>
     DataProcessingPurpose
     LegalBasis
 }
-note right: Implementing\nDataProcessingPurpose\nand LegalBasis as\nproperties is a model\nsimplification
+'note right: Implementing\nDataProcessingPurpose\nand LegalBasis as\nproperties is a model\nsimplification
 
 class DataProcessingPurpose <<(V,DeepSkyBlue)TODO>>
 hide DataProcessingPurpose
@@ -71,7 +71,7 @@ class Risk <<(E,plum)>>
 }
 class RiskScenario <<(V,DeepSkyBlue)>>
 class RiskScenarioLibrary <<(V,DeepSkyBlue)>>
-note right: A library containing risk scenarios\ will simplify and\nmake risk analysis more relevant
+note right: A library containing risk\nscenarios will simplify\nand make risk analysis\nmore relevant
 
 class RiskScenarioLibraryRepository <<(R,Yellow)>>
 class RiskAnalysis <<(E,plum)TODO>>
@@ -80,11 +80,16 @@ hide RiskAppetite
 
 class RiskAnalysisOwner <<(V,DeepSkyBlue)TODO>>
 class RiskOwner <<(V,DeepSkyBlue)TODO>>
-interface RiskItem
+interface RiskItem {
+    getSeverityLevel()
+}
 class RiskTreatment <<(V,DeepSkyBlue)>> {
     RiskTreatmentStatus
     RiskTreatmentTypes
 }
+
+class RiskTreatmentPlan <<(E,plum)TODO>>
+
 enum RiskTreatmentStatus {
     EXISTING
     PLANNED
@@ -113,7 +118,7 @@ class Threat <<(V,DeepSkyBlue)>> {
     ThreatTypes
     ThreatAgent
 }
-note left: Implementing ThreatTypes\nand ThreatAgent as properties\nis a model simplification
+'note top: Implementing ThreatTypes\nand ThreatAgent as properties\nis a model simplification
 
 class ThreatLibrary <<(V,DeepSkyBlue)TODO>> {
     RiskTreatment
@@ -121,9 +126,12 @@ class ThreatLibrary <<(V,DeepSkyBlue)TODO>> {
     ThreatAgent
     Vulnerability
 }
-note left: A library containing threats, \nthreat agents, and exploted\nvulnerabilities will simplify and\nmake risk analysis more relevant
+note right  : A library containing threats, \nthreat agents, and exploted\nvulnerabilities will simplify and\nmake risk analysis more relevant
 
-class ThreatLibraryRepository <<(R,YELLOW)TODO>>
+class ThreatLibraryRepository <<(R,YELLOW)>> {
+    readThreatAgents()
+    writeThreatAgents(threatAgents)
+}
 class ThreatAgent <<(V,DeepSkyBlue)>>
 hide ThreatAgent
 enum ThreatAgentType {
@@ -131,6 +139,11 @@ enum ThreatAgentType {
     ENVIRONMENTAL
 }
 hide ThreatAgentType
+interface ThreatPresence
+class OwaspThreatPresence <<(V,DeepSkyBlue)>>
+class DiscreteThreatPresence <<(V,DeepSkyBlue)>>
+interface ThreatPresenceScore
+class DiscreteThreatPresenceScore <<(E,plum)>>
 
 enum ThreatTypes {
     DELIBERATE
@@ -158,19 +171,26 @@ OrganizationRiskProfile  -> OrganizationRiskOwner : has an >
 RiskAnalysis "1" o--> "*" RiskAnalysis
 note bottom on link :The recursive relationship\nis to enable analysis\nbased on collection of\nother analysis
 RiskAnalysis "1" o--> "*" Risk : analyze >
+RiskAnalysis "1" o--> "1" RiskTreatmentPlan : has a >
+RiskTreatmentPlan "1" o--> "*" RiskTreatment
+RiskTreatment "1" -right-> "1..*" Vulnerability : reduce
+RiskTreatmentPlan "1" o--> "*" Risk
+
 RiskAnalysis -> RiskAnalysisOwner : has a >
 OrganizationRiskOwner ---|> RiskOwner : is a >
 RiskOwner <|--  RiskAnalysisOwner :is a <
 Risk "1" o--> "*" Asset :contains >
+'Risk "1" o--> "*" Threat :threaten by >
+'note as N2
+'    Should this relation
+'    be present?
+'    Yes, to complete the
+'    threat landscape
+'end note
+'Risk . N2
+'N2 . Threat
+
 Risk "1" o--> "*" Threat :threaten by >
-note as N2
-    Should this relation
-    be present?
-    Yes, to complete the
-    threat landscape
-end note
-Risk . N2
-N2 . Threat
 
 Risk "1" o--> "*" Vulnerability :exposed by >
 Risk "1" o--> "*" RiskTreatment :reduced by >
@@ -182,13 +202,20 @@ RiskScenarioLibrary "1" ..> "1" RiskScenarioLibraryRepository : reads/\nwrites >
 Asset ..|> RiskItem :is a >
 Vulnerability ..|> RiskItem :is a >
 RiskTreatment ..|> RiskItem :is a >
-Threat ..|> RiskItem :is a >
+ThreatPresence -up-|> RiskItem :extends >
 Threat <... ThreatLibrary : provides <
+Threat ..|> RiskItem :is a >
+Threat "1" -> "1" ThreatPresence :has >
+'DiscreteThreatPresence ..|> ThreatPresence :is a >
+ThreatPresence <|.. OwaspThreatPresence :is a >
+ThreatPresence <|.. DiscreteThreatPresence :is a >
+
 Vulnerability <... ThreatLibrary : provides <
 RiskTreatment <... ThreatLibrary : provides <
 ThreatLibrary "1" ..> "1" ThreatLibraryRepository : reads/\nwrites >
 
-Vulnerability "0..*" -left- "0..1" Threat : exploited by >
+Threat "0..*" -right-> "1..*" Vulnerability : exploits >
+Vulnerability "0..*" <-left- "1..*" Asset : < exposed by
 
 newpage
 title \nKoz-Med-Ros Information Model - Factories and related objects\n\n

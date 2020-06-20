@@ -6,7 +6,7 @@ data class Risk(
         val id: Int,
         val description: String,
         val assets: List<Asset>,
-        val threats: List<Threat>,
+        val threatPresenceList: List<RiskItem>,
         val vulnerabilities: List<Vulnerability>,
         val existingRiskTreatments: List<RiskTreatment>,
         val probabilityWithExistingMitigations: Int,

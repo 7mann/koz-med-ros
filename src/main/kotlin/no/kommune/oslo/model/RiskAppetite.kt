@@ -1,6 +1,8 @@
 package no.kommune.oslo.model
 
-data class RiskAppetite(val riskMatrix: Array<Array<SeverityLevels>>) {
+import no.kommune.oslo.model.enums.SeverityLevel
+
+data class RiskAppetite(val riskMatrix: Array<Array<SeverityLevel>>) {
     private val lowerBoundary = 1
     private val higherBoundary = 5
 
@@ -8,7 +10,7 @@ data class RiskAppetite(val riskMatrix: Array<Array<SeverityLevels>>) {
         if (riskMatrix.size != higherBoundary) throw IllegalArgumentException("RiskMatrix size has to be ${higherBoundary}!")
     }
 
-    fun getSeverityLevel(consequenceIndex: Int, probabilityIndex: Int): SeverityLevels {
+    fun getSeverityLevel(consequenceIndex: Int, probabilityIndex: Int): SeverityLevel {
         if (consequenceIndex < lowerBoundary || consequenceIndex > higherBoundary) {
             throw ArrayIndexOutOfBoundsException("Consequence index must be between ${lowerBoundary} and ${higherBoundary}!")
         }

@@ -1,5 +1,6 @@
-package no.kommune.oslo.model
+package no.kommune.oslo.model.repository
 
+import no.kommune.oslo.model.RiskScenario
 import org.apache.logging.log4j.LogManager
 
 

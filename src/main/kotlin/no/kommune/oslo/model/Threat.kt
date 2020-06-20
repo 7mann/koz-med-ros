@@ -1,9 +1,12 @@
 package no.kommune.oslo.model
 
-import no.kommune.oslo.methodology.ThreatPresenceCalculation
+import no.kommune.oslo.model.enums.ThreatTypes
 
-data class Threat(val threatType: ThreatTypes, val threatPresenceCalculation: ThreatPresenceCalculation, val description: String) : RiskItem {
-    override fun getSeverityLevel(): SeverityLevels {
-        return threatPresenceCalculation.threatPresenceValue
-    }
-}
+data class Threat(val threatType: ThreatTypes,
+                  val threatName: String,
+                  val description: String,
+                  val threatPresence: ThreatPresence,
+                  val target: String,
+                  val reference: String,
+                  val exploitedVulnerabilities: List<Vulnerability> = emptyList()
+)
