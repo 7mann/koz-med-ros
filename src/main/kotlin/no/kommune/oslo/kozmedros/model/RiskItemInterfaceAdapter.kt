@@ -39,6 +39,10 @@ class RiskItemInterfaceAdapter : JsonDeserializer<Any>, JsonSerializer<Any> {
         return jsonObject
     }
 
+
+
+
+    
     private fun getObjectClass(className: String): Class<*> {
         try {
             return Class.forName(className)

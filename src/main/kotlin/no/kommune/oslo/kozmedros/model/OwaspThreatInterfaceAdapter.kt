@@ -1,33 +1,13 @@
 package no.kommune.oslo.kozmedros.model
 
-import com.google.gson.*
+import com.google.gson.JsonDeserializationContext
+import com.google.gson.JsonDeserializer
+import com.google.gson.JsonElement
 import java.lang.reflect.Type
 
-class OwaspThreatInterfaceAdapter : JsonDeserializer<Any>, JsonSerializer<Any> {
+class OwaspThreatInterfaceAdapter : JsonDeserializer<OwaspThreatPresence> {
 
-    companion object {
-        const val CLASSNAME = "CLASSNAME"
-        const val DATA = "DATA"
-    }
-
-
-    override fun serialize(jsonElement: Any, type: Type, jsonSerializationContext: JsonSerializationContext): JsonElement {
-        val jsonObject = JsonObject()
-        jsonObject.addProperty(CLASSNAME, jsonElement.javaClass.name)
-        jsonObject.add(DATA, jsonSerializationContext.serialize(jsonElement))
-        return jsonObject
-    }
-
-    private fun getObjectClass(className: String): Class<*> {
-        try {
-            return Class.forName(className)
-        } catch (e: ClassNotFoundException) {
-            throw JsonParseException(e.message)
-        }
-
-    }
-
-    override fun deserialize(p0: JsonElement?, p1: Type?, p2: JsonDeserializationContext?): Any {
-        TODO("Not yet implemented")
+    override fun deserialize(json: JsonElement?, type: Type?, context: JsonDeserializationContext?): OwaspThreatPresence? {
+        return context?.deserialize<OwaspThreatPresence>(json, OwaspThreatPresence::class.java)
     }
 }

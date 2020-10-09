@@ -1,14 +1,13 @@
 package no.kommune.oslo.kozmedros.model.repository
 
+import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
-import no.kommune.oslo.kozmedros.model.OwaspThreatInterfaceAdapter
-import no.kommune.oslo.kozmedros.model.Threat
-import no.kommune.oslo.kozmedros.model.ThreatAgent
-import no.kommune.oslo.kozmedros.model.Vulnerability
+import no.kommune.oslo.kozmedros.model.*
 import org.apache.logging.log4j.LogManager
 import java.io.BufferedReader
 import java.io.File
+
 
 class FileThreatLibraryRepository(
         val path: String,
@@ -75,7 +74,7 @@ class FileThreatLibraryRepository(
         this.writeJsonFile<Vulnerability>(vulnerabilities, fileNameAndPath = "$path/$threatFileName")
     }
 
-    private fun readThreatsfromFile(fileNameAndPath: String): List<Threat> {
+    private fun readThreatsfromFileRune(fileNameAndPath: String): List<Threat> {
         if (!File(fileNameAndPath).exists()) {
             val errorMessage = "File $fileNameAndPath does not exist!"
             logger.error(errorMessage)
@@ -103,5 +102,23 @@ class FileThreatLibraryRepository(
         this.logger.debug(" ${libraryList.size} Library list read from file ${fileNameAndPath}")
         return libraryList
 
+    }
+
+
+    private fun readThreatsfromFile(fileNameAndPath: String): List<Threat> {
+        if (!File(fileNameAndPath).exists()) {
+            val errorMessage = "File $fileNameAndPath does not exist!"
+            logger.error(errorMessage)
+            throw IllegalArgumentException(errorMessage)
+        }
+        val bufferedReader: BufferedReader = File(fileNameAndPath).bufferedReader()
+        val inputString = bufferedReader.use { it.readText() }
+
+        var gson = GsonBuilder().registerTypeAdapter(ThreatPresence::class.java, OwaspThreatInterfaceAdapter()).create()
+
+        val arrayLibraryType = object : TypeToken<List<Threat>>() {}.type
+        val libraryList: List<Threat> = gson.fromJson(inputString, arrayLibraryType)
+        this.logger.debug(" ${libraryList.size} Library list read from file ${fileNameAndPath}")
+        return libraryList
     }
 }

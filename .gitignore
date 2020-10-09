@@ -1,6 +1,9 @@
 # Compiled class file
 *.class
 
+# iml file
+*.iml
+
 # Log file
 *.log
 
@@ -23,3 +26,5 @@
 hs_err_pid*
 /.idea/
 /.idea.old/
+
+/target
