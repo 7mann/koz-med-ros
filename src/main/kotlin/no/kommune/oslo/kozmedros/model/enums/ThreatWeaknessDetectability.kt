@@ -1,7 +1,7 @@
 package no.kommune.oslo.kozmedros.model.enums
 
-enum class ThreatWeaknessDetectability(val threatWeaknessDetectability: Int) {
-    SEVERE(threatWeaknessDetectability = 3),
-    MODERATE(threatWeaknessDetectability = 2),
-    MINOR(1)
+enum class ThreatWeaknessDetectability(val weaknessDetectability: Int) {
+    EASY(weaknessDetectability = 3),
+    AVERAGE(weaknessDetectability = 2),
+    DIFFICULT(weaknessDetectability = 1)
 }

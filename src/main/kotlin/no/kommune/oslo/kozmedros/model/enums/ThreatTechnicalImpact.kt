@@ -1,7 +1,7 @@
 package no.kommune.oslo.kozmedros.model.enums
 
-enum class ThreatTechnicalImpact(val threatTechnicalImpact: Int) {
-    SEVERE(threatTechnicalImpact = 3),
-    MODERATE(threatTechnicalImpact = 2),
-    MINOR(threatTechnicalImpact = 1)
+enum class ThreatTechnicalImpact(val technicalImpact: Int) {
+    SEVERE(technicalImpact = 3),
+    MODERATE(technicalImpact = 2),
+    MINOR(technicalImpact = 1)
 }

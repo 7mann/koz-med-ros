@@ -3,26 +3,29 @@ package no.kommune.oslo.kozmedros.model.repository
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
+import no.kommune.oslo.kozmedros.model.Threat
 import org.apache.logging.log4j.LogManager
 import java.io.BufferedReader
 import java.io.File
+import java.lang.reflect.Type
 
 open class FileLibraryRepository {
     private val logger = LogManager.getLogger(javaClass)
 
-    protected fun <T> readJsonFile(fileNameAndPath: String): List<T> {
+    protected inline fun <reified T> readJsonFile(fileNameAndPath: String, classType: Type): List<T> {
         if (!File(fileNameAndPath).exists()) {
             val errorMessage = "File $fileNameAndPath does not exist!"
-            logger.error(errorMessage)
+//            logger.error(errorMessage)
             throw IllegalArgumentException(errorMessage)
         }
 
         val gson = GsonBuilder().setPrettyPrinting().create()
         val bufferedReader: BufferedReader = File(fileNameAndPath).bufferedReader()
         val inputString = bufferedReader.use { it.readText() }
-        val arrayLibraryType = object : TypeToken<List<T>>() {}.type
+        val arrayLibraryType = object : TypeToken<List<Threat>>() {}.type
         val libraryList: List<T> = gson.fromJson(inputString, arrayLibraryType)
-        logger.debug(" ${libraryList.size} Library list read from file ${fileNameAndPath}")
+//        val libraryList: List<T> = gson.fromJson<List<T>>(inputString, classType)
+//        this.logger.debug(" ${libraryList.size} Library list read from file ${fileNameAndPath}")
         return libraryList
     }
 

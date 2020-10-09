@@ -13,12 +13,12 @@ internal class SeverityLevelsTest {
         assertThat(SeverityLevel.getByValue(MODERATE.severityLevelValue)).isEqualTo(MODERATE)
         assertThat(SeverityLevel.getByValue(HIGH.severityLevelValue)).isEqualTo(HIGH)
         assertThat(SeverityLevel.getByValue(EXTREME.severityLevelValue)).isEqualTo(EXTREME)
+        assertThat(SeverityLevel.getByValue(NOT_EVALUATED.severityLevelValue)).isEqualTo(NOT_EVALUATED)
     }
 
     @Test
     fun `Expect INVALID severity level returned when invalid number value entered`() {
         assertThat(SeverityLevel.getByValue(-1)).isEqualTo(INVALID)
-        assertThat(SeverityLevel.getByValue(-2)).isEqualTo(INVALID)
         assertThat(SeverityLevel.getByValue(199)).isEqualTo(INVALID)
         assertThat(SeverityLevel.getByValue(Int.MAX_VALUE)).isEqualTo(INVALID)
     }

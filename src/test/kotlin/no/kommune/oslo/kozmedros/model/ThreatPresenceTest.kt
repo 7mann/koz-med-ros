@@ -42,8 +42,8 @@ internal class ThreatPresenceTest {
         return OwaspThreatPresence(
                 exploitability = ThreatExploitability.AVERAGE,
                 weaknessPrevalence = ThreatWeaknessPrevalence.WIDESPREAD,
-                weaknessDetectability = ThreatWeaknessDetectability.MODERATE,
-                technicalImpacts = ThreatTechnicalImpact.MODERATE,
+                weaknessDetectability = ThreatWeaknessDetectability.AVERAGE,
+                technicalImpact = ThreatTechnicalImpact.MODERATE,
                 businessImpact = ThreatBusinessImpact.MODERATE)
 
     }

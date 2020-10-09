@@ -9,4 +9,24 @@ data class Threat(val threatType: ThreatTypes,
                   val target: String,
                   val reference: String,
                   val exploitedVulnerabilities: List<Vulnerability> = emptyList()
-)
+) {
+    companion object Factory {
+        fun emptyThreat(): Threat {
+            val emptyThreatPresence = EmptyThreatPresence()
+            return Threat(
+                    threatType = ThreatTypes.EMPTY,
+                    threatName = "EMPTY",
+                    description = "Empty threasdsafe threat",
+                    threatPresence = emptyThreatPresence,
+                    target = "NONE",
+                    reference = "NONE",
+                    exploitedVulnerabilities = emptyList()
+            )
+        }
+    }
+
+    fun isEmpty(): Boolean {
+        if (threatType == ThreatTypes.EMPTY) return true
+        return false
+    }
+}

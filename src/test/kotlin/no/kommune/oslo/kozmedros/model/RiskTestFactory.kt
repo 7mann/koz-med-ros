@@ -7,7 +7,7 @@ import no.kommune.oslo.kozmedros.model.enums.RiskTreatmentStatus.PLANNED
 import no.kommune.oslo.kozmedros.model.enums.RiskTreatmentTypes.PROBABILITY_RISK_TREATMENT
 import no.kommune.oslo.kozmedros.model.enums.SeverityLevel.*
 import no.kommune.oslo.kozmedros.model.enums.ThreatTypes.ACCIDENTAL
-import no.kommune.oslo.kozmedros.model.enums.VulnerabilityTypes.*
+import no.kommune.oslo.kozmedros.model.enums.VulnerabilityType.*
 
 object RiskTestFactory {
     fun createRiskApetite() = RiskAppetite(
@@ -196,23 +196,28 @@ object RiskTestFactory {
             Vulnerability(
                     vulnerabilityType = TECHNICAL,
                     vulnerabilityDescription = "Test vulnerability 1",
-                    vulnerabilityPotential = LOW),
+                    vulnerabilityPotential = LOW,
+                    reference = "Test"),
             Vulnerability(
                     vulnerabilityType = HUMAN,
                     vulnerabilityDescription = "Test vulnerability 2",
-                    vulnerabilityPotential = MODERATE),
+                    vulnerabilityPotential = MODERATE,
+                    reference = "Test"),
             Vulnerability(
                     vulnerabilityType = ORGANIZATIONAL,
                     vulnerabilityDescription = "Test vulnerability 3",
-                    vulnerabilityPotential = HIGH),
+                    vulnerabilityPotential = HIGH,
+                    reference = "Test"),
             Vulnerability(
                     vulnerabilityType = TECHNICAL,
                     vulnerabilityDescription = "Test vulnerability 4",
-                    vulnerabilityPotential = EXTREME),
+                    vulnerabilityPotential = EXTREME,
+                    reference = "Test"),
             Vulnerability(
                     vulnerabilityType = TECHNICAL,
                     vulnerabilityDescription = "Test vulnerability 5",
-                    vulnerabilityPotential = LOW)
+                    vulnerabilityPotential = LOW,
+                    reference = "Test")
     )
 
     fun createThreatAgentList(): List<ThreatAgent> {
@@ -275,8 +280,8 @@ object RiskTestFactory {
                 threatPresence = OwaspThreatPresence(
                         exploitability = ThreatExploitability.AVERAGE,
                         weaknessPrevalence = ThreatWeaknessPrevalence.WIDESPREAD,
-                        weaknessDetectability = ThreatWeaknessDetectability.MODERATE,
-                        technicalImpacts = ThreatTechnicalImpact.MODERATE,
+                        weaknessDetectability = ThreatWeaknessDetectability.AVERAGE,
+                        technicalImpact = ThreatTechnicalImpact.MODERATE,
                         businessImpact = ThreatBusinessImpact.MODERATE
                 ),
                 target = "web",

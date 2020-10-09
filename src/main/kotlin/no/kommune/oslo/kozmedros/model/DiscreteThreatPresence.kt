@@ -23,7 +23,7 @@ data class DiscreteThreatPresence(
 //            0 -> NONE
 //            1 -> INSIGNIFICANT
 //            2 -> LOW
-//            3 -> MODERATE
+//            3 -> AVERAGE
 //            4 -> HIGH
 //            5 -> EXTREME
 //            else -> INVALID

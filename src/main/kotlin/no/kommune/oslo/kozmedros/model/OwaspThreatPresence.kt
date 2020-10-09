@@ -6,7 +6,7 @@ data class OwaspThreatPresence(
         val exploitability: ThreatExploitability,
         val weaknessPrevalence: ThreatWeaknessPrevalence,
         val weaknessDetectability: ThreatWeaknessDetectability,
-        val technicalImpacts: ThreatTechnicalImpact,
+        val technicalImpact: ThreatTechnicalImpact,
         val businessImpact: ThreatBusinessImpact
 ) : ThreatPresence {
 
@@ -15,17 +15,17 @@ data class OwaspThreatPresence(
                 "exploitability" to exploitability.toString(),
                 "weaknessPrevalence" to weaknessPrevalence.toString(),
                 "weaknessDetectability" to weaknessDetectability.toString(),
-                "technicalImpacts" to technicalImpacts.toString(),
+                "technicalImpact" to technicalImpact.toString(),
                 "businessImpact" to businessImpact.toString()
         )
     }
 
     override fun getSeverityLevel(): SeverityLevel {
         val threatLevel: Int = exploitability.exploitability +
-                weaknessPrevalence.threatExploitability +
-                weaknessDetectability.threatWeaknessDetectability +
-                technicalImpacts.threatTechnicalImpact +
-                businessImpact.threatBusinessImpact
+                weaknessPrevalence.weaknessPrevalence +
+                weaknessDetectability.weaknessDetectability +
+                technicalImpact.technicalImpact +
+                businessImpact.businessImpact
         return owasp2sevlevel(threatLevel)
     }
 

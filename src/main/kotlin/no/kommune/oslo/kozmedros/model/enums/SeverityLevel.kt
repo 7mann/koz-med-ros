@@ -8,7 +8,8 @@ enum class SeverityLevel(val severityLevelValue: Int) {
     MODERATE(severityLevelValue = 300),
     HIGH(severityLevelValue = 400),
     EXTREME(severityLevelValue = 500),
-    INVALID(severityLevelValue = -1);
+    INVALID(severityLevelValue = -1),
+    NOT_EVALUATED(severityLevelValue = -2);
 
     companion object {
         private val severityValues: Array<SeverityLevel> = values()

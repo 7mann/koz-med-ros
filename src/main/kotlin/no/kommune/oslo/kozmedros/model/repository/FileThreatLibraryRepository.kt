@@ -1,13 +1,22 @@
 package no.kommune.oslo.kozmedros.model.repository
 
+import com.google.gson.GsonBuilder
+import com.google.gson.reflect.TypeToken
+import no.kommune.oslo.kozmedros.model.OwaspThreatInterfaceAdapter
 import no.kommune.oslo.kozmedros.model.Threat
 import no.kommune.oslo.kozmedros.model.ThreatAgent
+import no.kommune.oslo.kozmedros.model.Vulnerability
 import org.apache.logging.log4j.LogManager
+import java.io.BufferedReader
+import java.io.File
 
-class FileThreatLibraryRepository(val path: String, val threatAgentFileName: String, val threatFileName: String) : FileLibraryRepository(), ThreatLibraryRepository {
+class FileThreatLibraryRepository(
+        val path: String,
+        val threatAgentFileName: String,
+        val threatFileName: String,
+        val vulnerabilityFileName: String
+) : FileLibraryRepository(), ThreatLibraryRepository {
     private val logger = LogManager.getLogger(this.javaClass)
-    private val threatAgentFileNameAndPath: String
-    private val threatFileNameAndPath: String
 
     init {
         if (path.isBlank()) {
@@ -22,26 +31,77 @@ class FileThreatLibraryRepository(val path: String, val threatAgentFileName: Str
             logger.error("Threat file name must be present!")
             throw IllegalArgumentException("Threat file name must be present!")
         }
-        this.threatAgentFileNameAndPath = "$path/$threatAgentFileName"
-        this.threatFileNameAndPath = "$path/$threatFileName"
+        if (vulnerabilityFileName.isBlank()) {
+            logger.error("Vulnerability filename must be present!")
+            throw IllegalArgumentException("Vulnerability filename must be present!")
+        }
     }
 
     override fun readThreatAgents(): List<ThreatAgent> {
-        return this.readJsonFile<ThreatAgent>(this.threatAgentFileNameAndPath)
+        val type = object : TypeToken<List<ThreatAgent>>() {}.type
+        return this.readJsonFile<ThreatAgent>(fileNameAndPath = "$path/$threatAgentFileName", classType = type)
     }
 
     override fun writeThreatAgents(threatAgents: List<ThreatAgent>) {
         if (threatAgents.isNullOrEmpty()) {
             throw IllegalArgumentException("ThreatAgent list can not be null or empty!")
         }
-        this.writeJsonFile<ThreatAgent>(threatAgents, threatAgentFileNameAndPath)
+        this.writeJsonFile<ThreatAgent>(threatAgents, fileNameAndPath = "$path/$threatAgentFileName")
     }
 
-    override fun readThreat(): List<Threat> {
-        TODO("Not yet implemented")
+    override fun readThreats(): List<Threat> {
+//        val type =  object : TypeToken<Threat>() {}.type
+        val threatList = readThreatsfromFile(fileNameAndPath = "$path/$threatFileName")
+        return threatList
+//        return this.readJsonFile<Threat>(fileNameAndPath = "$path/$threatFileName", classType = type)
     }
 
-    override fun writeThreat(threats: List<Threat>) {
-        TODO("Not yet implemented")
+    override fun writeThreats(threats: List<Threat>) {
+        if (threats.isNullOrEmpty()) {
+            throw IllegalArgumentException("Threat list can not be null or empty!")
+        }
+        this.writeJsonFile<Threat>(threats, "$path/$threatFileName")
+    }
+
+    override fun readVulnerabilites(): List<Vulnerability> {
+        val type = object : TypeToken<List<Vulnerability>>() {}.type
+        return this.readJsonFile<Vulnerability>(fileNameAndPath = "$path/$vulnerabilityFileName", classType = type)
+    }
+
+    override fun writeulnerabilites(vulnerabilities: List<Vulnerability>) {
+        if (vulnerabilities.isNullOrEmpty()) {
+            throw IllegalArgumentException("Vulnerability list can not be null or empty!")
+        }
+        this.writeJsonFile<Vulnerability>(vulnerabilities, fileNameAndPath = "$path/$threatFileName")
+    }
+
+    private fun readThreatsfromFile(fileNameAndPath: String): List<Threat> {
+        if (!File(fileNameAndPath).exists()) {
+            val errorMessage = "File $fileNameAndPath does not exist!"
+            logger.error(errorMessage)
+            throw IllegalArgumentException(errorMessage)
+        }
+
+//        val gsonBuilder = GsonBuilder().setPrettyPrinting().registerTypeAdapter(
+//                ThreatPresence::class.java,
+//                RiskItemInterfaceAdapter
+//        ).create()
+
+//        var gson : Gson? = null
+        var gBuilder = GsonBuilder()
+//        gBuilder.registerTypeAdapter(OwaspThreatPresence::class.java, RiskItemInterfaceAdapter())
+//        gBuilder.registerTypeAdapter(ThreatPresence::class.java, RiskItemInterfaceAdapter())
+        gBuilder.registerTypeAdapter(Threat::class.java, OwaspThreatInterfaceAdapter())
+        var gson = gBuilder.create()
+
+//        gsonBuilder.registerTypeAdapter
+        val bufferedReader: BufferedReader = File(fileNameAndPath).bufferedReader()
+        val inputString = bufferedReader.use { it.readText() }
+        val arrayLibraryType = object : TypeToken<List<Threat>>() {}.type
+//        val libraryList: List<Threat> = gsonBuilder.fromJson(inputString, arrayLibraryType)
+        val libraryList: List<Threat> = gson.fromJson(inputString, arrayLibraryType)
+        this.logger.debug(" ${libraryList.size} Library list read from file ${fileNameAndPath}")
+        return libraryList
+
     }
 }
