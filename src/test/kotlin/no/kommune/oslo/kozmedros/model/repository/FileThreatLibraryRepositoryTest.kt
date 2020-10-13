@@ -73,8 +73,7 @@ internal class FileThreatLibraryRepositoryTest {
         threatLibraryRepo.writeThreats(threatList)
         assertThat(File(testThreatfile).exists()).isTrue()
         val readThreatsfromLibrary = threatLibraryRepo.readThreats()
-        assertThat(threatList.size).isEqualTo(readThreatsfromLibrary.size)
-
+        assertThat(threatList).containsExactlyElementsOf(readThreatsfromLibrary)
         assertThat(File(testThreatfile).exists()).isTrue()
     }
 

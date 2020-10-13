@@ -1,6 +1,5 @@
 package no.kommune.oslo.kozmedros.model.repository
 
-import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import no.kommune.oslo.kozmedros.model.*
@@ -90,7 +89,7 @@ class FileThreatLibraryRepository(
         var gBuilder = GsonBuilder()
 //        gBuilder.registerTypeAdapter(OwaspThreatPresence::class.java, RiskItemInterfaceAdapter())
 //        gBuilder.registerTypeAdapter(ThreatPresence::class.java, RiskItemInterfaceAdapter())
-        gBuilder.registerTypeAdapter(Threat::class.java, OwaspThreatInterfaceAdapter())
+        gBuilder.registerTypeAdapter(Threat::class.java, ThreatInterfaceAdapter(OwaspThreatPresence::class.java.name))
         var gson = gBuilder.create()
 
 //        gsonBuilder.registerTypeAdapter
@@ -114,7 +113,7 @@ class FileThreatLibraryRepository(
         val bufferedReader: BufferedReader = File(fileNameAndPath).bufferedReader()
         val inputString = bufferedReader.use { it.readText() }
 
-        var gson = GsonBuilder().registerTypeAdapter(ThreatPresence::class.java, OwaspThreatInterfaceAdapter()).create()
+        var gson = GsonBuilder().registerTypeAdapter(ThreatPresence::class.java, ThreatInterfaceAdapter(OwaspThreatPresence::class.java.name)).create()
 
         val arrayLibraryType = object : TypeToken<List<Threat>>() {}.type
         val libraryList: List<Threat> = gson.fromJson(inputString, arrayLibraryType)

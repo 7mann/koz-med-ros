@@ -8,7 +8,8 @@
       "weaknessPrevalence": "COMMON",
       "weaknessDetectability": "EASY",
       "technicalImpact": "SEVERE",
-      "businessImpact": "NOT_EVALUATED"
+      "businessImpact": "NOT_EVALUATED",
+      "CLASSNAME": "no.kommune.oslo.kozmedros.model.OwaspThreatPresence"
     },
     "target": "web",
     "reference": "OWASP Top 10 2017",
@@ -23,7 +24,8 @@
       "hasCapacity": true,
       "hasIntention": true,
       "hasHistory": true,
-      "isTarget": false
+      "isTarget": false,
+      "CLASSNAME": "no.kommune.oslo.kozmedros.model.DiscreteThreatPresence"
     },
     "target": "Web",
     "reference": "OWASP Top 10 2017",

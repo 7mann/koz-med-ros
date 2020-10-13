@@ -3,7 +3,10 @@ package no.kommune.oslo.kozmedros.model.repository
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
+import no.kommune.oslo.kozmedros.model.OwaspThreatPresence
+import no.kommune.oslo.kozmedros.model.ThreatInterfaceAdapter
 import no.kommune.oslo.kozmedros.model.Threat
+import no.kommune.oslo.kozmedros.model.ThreatPresence
 import org.apache.logging.log4j.LogManager
 import java.io.BufferedReader
 import java.io.File
@@ -41,7 +44,7 @@ open class FileLibraryRepository {
             throw IllegalArgumentException(errorMessage)
         }
 
-        val gson: Gson = GsonBuilder().setPrettyPrinting().create()
+        val gson: Gson = GsonBuilder().registerTypeAdapter(ThreatPresence::class.java, ThreatInterfaceAdapter(OwaspThreatPresence::class.java.name)).setPrettyPrinting().create()
         val jsonString: String = gson.toJson(libraryList)
         logger.debug("Writing ${libraryList.size} records to library ${fileNameAndPath}")
         val file = File(fileNameAndPath)
