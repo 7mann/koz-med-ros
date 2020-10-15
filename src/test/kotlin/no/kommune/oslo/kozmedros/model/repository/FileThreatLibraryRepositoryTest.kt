@@ -80,12 +80,16 @@ internal class FileThreatLibraryRepositoryTest {
         assertThat(File(testThreatfile).exists()).isTrue()
         val readThreatsfromLibrary = threatLibraryRepo.readThreats()
         assertThat(threatList).containsExactlyElementsOf(readThreatsfromLibrary)
-        assertThat(File(testThreatfile).exists()).isTrue()
+
+        File(testfile).exists()
+        
+        if (!File(testfile).exists()) return
+        logger.debug("Removing $testfile")
+        File(testfile).delete()
     }
 
     @Test
     fun `Test reading OWASP threat from file`() {
-        val owaspThreatfile = "$resourcesPath/$owaspThreatFileName"
         val threatLibraryRepo = FileThreatLibraryRepository(
                 path = resourcesPath,
                 threatAgentFileName = testThreatAgentFileName,

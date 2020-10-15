@@ -27,4 +27,7 @@ hs_err_pid*
 /.idea/
 /.idea.old/
 
-/target
+
+#Gradle files
+.gradle
+/build/
