@@ -1,7 +1,11 @@
 package no.kommune.oslo.kozmedros.model
 
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 import no.kommune.oslo.kozmedros.model.enums.*
 
+@Serializable
+@SerialName("owasp")
 data class OwaspThreatPresence(
         val exploitability: ThreatExploitability,
         val weaknessPrevalence: ThreatWeaknessPrevalence,

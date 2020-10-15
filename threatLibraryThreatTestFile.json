@@ -1,34 +1,32 @@
 [
-  {
-    "threatType": "DELIBERATE",
-    "threatName": "Injection",
-    "description": "Injection flaws, such as SQL, NoSQL, OS, and LDAP injection, occur when untrusted data is sent to an interpreter as part of a command or query. The attacker’s hostile data can trick the interpreter into executing unintended commands or accessing data without proper authorization.",
-    "threatPresence": {
-      "exploitability": "EASY",
-      "weaknessPrevalence": "COMMON",
-      "weaknessDetectability": "EASY",
-      "technicalImpact": "SEVERE",
-      "businessImpact": "NOT_EVALUATED",
-      "CLASSNAME": "no.kommune.oslo.kozmedros.model.OwaspThreatPresence"
+    {
+        "threatType": "DELIBERATE",
+        "threatName": "Injection",
+        "description": "Injection flaws, such as SQL, NoSQL, OS, and LDAP injection, occur when untrusted data is sent to an interpreter as part of a command or query. The attacker’s hostile data can trick the interpreter into executing unintended commands or accessing data without proper authorization.",
+        "threatPresence": {
+            "type": "owasp",
+            "exploitability": "EASY",
+            "weaknessPrevalence": "COMMON",
+            "weaknessDetectability": "EASY",
+            "technicalImpact": "SEVERE",
+            "businessImpact": "NOT_EVALUATED"
+        },
+        "target": "web",
+        "reference": "OWASP Top 10 2017"
     },
-    "target": "web",
-    "reference": "OWASP Top 10 2017",
-    "exploitedVulnerabilities": []
-  },
-  {
-    "threatType": "DELIBERATE",
-    "threatName": "OWASPThreat2",
-    "description": "OWASP Threat 2",
-    "threatPresence": {
-      "isPresent": true,
-      "hasCapacity": true,
-      "hasIntention": true,
-      "hasHistory": true,
-      "isTarget": false,
-      "CLASSNAME": "no.kommune.oslo.kozmedros.model.DiscreteThreatPresence"
-    },
-    "target": "Web",
-    "reference": "OWASP Top 10 2017",
-    "exploitedVulnerabilities": []
-  }
+    {
+        "threatType": "DELIBERATE",
+        "threatName": "OWASPThreat2",
+        "description": "OWASP Threat 2",
+        "threatPresence": {
+            "type": "discrete",
+            "isPresent": true,
+            "hasCapacity": true,
+            "hasIntention": true,
+            "hasHistory": true,
+            "isTarget": false
+        },
+        "target": "Web",
+        "reference": "OWASP Top 10 2017"
+    }
 ]

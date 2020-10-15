@@ -2,6 +2,12 @@
 
 package no.kommune.oslo.kozmedros.model.repository
 
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.modules.SerializersModule
+import kotlinx.serialization.modules.polymorphic
+import kotlinx.serialization.modules.subclass
 import no.kommune.oslo.kozmedros.model.*
 import no.kommune.oslo.kozmedros.model.enums.*
 import org.apache.logging.log4j.LogManager
@@ -94,7 +100,6 @@ internal class FileThreatLibraryRepositoryTest {
 
     @Test
     fun `Test reading OWASP vulnerabilities from file`() {
-//        val owaspThreatfile = "$resourcesPath/$owaspVulnerabilitiesFileName"
         val threatLibraryRepo = FileThreatLibraryRepository(
                 path = resourcesPath,
                 threatAgentFileName = testThreatAgentFileName,
