@@ -1,0 +1,442 @@
+[
+  {
+    "vulnerabilityType": "TECHNICAL",
+    "vulnerabilityDescription": "User-supplied data is not validated, filtered, or sanitized by the application.",
+    "vulnerabilityPotential": "",
+    "reference": "OWASP Top 10 2017",
+    "threatName": "Injection",
+    "exploitedByThreat": ""
+  },
+  {
+    "vulnerabilityType": "TECHNICAL",
+    "vulnerabilityDescription": "Dynamic queries or non-parameterized calls without context-aware escaping are used directly in the interpreter.",
+    "vulnerabilityPotential": "",
+    "reference": "OWASP Top 10 2017",
+    "threatName": "Injection",
+    "exploitedByThreat": ""
+  },
+  {
+    "vulnerabilityType": "TECHNICAL",
+    "vulnerabilityDescription": "Hostile data is used within object-relational mapping (ORM) search parameters to extract additional, sensitive records.",
+    "vulnerabilityPotential": "",
+    "reference": "OWASP Top 10 2017",
+    "threatName": "Injection",
+    "exploitedByThreat": ""
+  },
+  {
+    "vulnerabilityType": "TECHNICAL",
+    "vulnerabilityDescription": "Hostile data is directly used or concatenated, such that the SQL or command contains both structure and hostile data in dynamic queries, commands, or stored procedures.",
+    "vulnerabilityPotential": "",
+    "reference": "OWASP Top 10 2017",
+    "threatName": "Injection",
+    "exploitedByThreat": ""
+  },
+  {
+    "vulnerabilityType": "TECHNICAL",
+    "vulnerabilityDescription": "The application permits automated attacks such as credential stuffing, where the attacker has a list of valid usernames and passwords.",
+    "vulnerabilityPotential": "",
+    "reference": "OWASP Top 10 2017",
+    "threatName": "Broken Authentication",
+    "exploitedByThreat": ""
+  },
+  {
+    "vulnerabilityType": "TECHNICAL",
+    "vulnerabilityDescription": "The application permits brute force or other automated attacks.",
+    "vulnerabilityPotential": "",
+    "reference": "OWASP Top 10 2017",
+    "threatName": "Broken Authentication",
+    "exploitedByThreat": ""
+  },
+  {
+    "vulnerabilityType": "TECHNICAL",
+    "vulnerabilityDescription": "The application permits default, weak, or well-known passwords, such as “Password1” or “admin/admin“.",
+    "vulnerabilityPotential": "",
+    "reference": "OWASP Top 10 2017",
+    "threatName": "Broken Authentication",
+    "exploitedByThreat": ""
+  },
+  {
+    "vulnerabilityType": "TECHNICAL",
+    "vulnerabilityDescription": "The application uses weak or ineffective credential recovery and forgot-password processes, such as “knowledge-based answers”, which cannot be made safe.",
+    "vulnerabilityPotential": "",
+    "reference": "OWASP Top 10 2017",
+    "threatName": "Broken Authentication",
+    "exploitedByThreat": ""
+  },
+  {
+    "vulnerabilityType": "TECHNICAL",
+    "vulnerabilityDescription": "The application uses plain text, encrypted, or weakly hashed passwords.",
+    "vulnerabilityPotential": "",
+    "reference": "OWASP Top 10 2017",
+    "threatName": "Broken Authentication",
+    "exploitedByThreat": ""
+  },
+  {
+    "vulnerabilityType": "TECHNICAL",
+    "vulnerabilityDescription": "The application has missing or ineffective multi-factor authentication.",
+    "vulnerabilityPotential": "",
+    "reference": "OWASP Top 10 2017",
+    "threatName": "Broken Authentication",
+    "exploitedByThreat": ""
+  },
+  {
+    "vulnerabilityType": "TECHNICAL",
+    "vulnerabilityDescription": "The application exposes Session IDs in the URL (e.g., URL rewriting).",
+    "vulnerabilityPotential": "",
+    "reference": "OWASP Top 10 2017",
+    "threatName": "Broken Authentication",
+    "exploitedByThreat": ""
+  },
+  {
+    "vulnerabilityType": "TECHNICAL",
+    "vulnerabilityDescription": "The application does not rotate Session IDs after successful login.",
+    "vulnerabilityPotential": "",
+    "reference": "OWASP Top 10 2017",
+    "threatName": "Broken Authentication",
+    "exploitedByThreat": ""
+  },
+  {
+    "vulnerabilityType": "TECHNICAL",
+    "vulnerabilityDescription": "The application does not properly invalidate Session IDs. User sessions or authentication tokens (particularly single sign-on (SSO) tokens) aren’t properly invalidated during logout or a period of inactivity.",
+    "vulnerabilityPotential": "",
+    "reference": "OWASP Top 10 2017",
+    "threatName": "Broken Authentication",
+    "exploitedByThreat": ""
+  },
+  {
+    "vulnerabilityType": "TECHNICAL",
+    "vulnerabilityDescription": "Is any data transmitted in clear text? This concerns protocols such as HTTP, SMTP, and FTP. External internet traffic is especially dangerous. Verify all internal traffic e.g. between load balancers, web servers, or back-end systems.",
+    "vulnerabilityPotential": "",
+    "reference": "OWASP Top 10 2017",
+    "threatName": "Sensitive Data Exposure",
+    "exploitedByThreat": ""
+  },
+  {
+    "vulnerabilityType": "TECHNICAL",
+    "vulnerabilityDescription": "Are any old or weak cryptographic algorithms used either by default or in older code?",
+    "vulnerabilityPotential": "",
+    "reference": "OWASP Top 10 2017",
+    "threatName": "Sensitive Data Exposure",
+    "exploitedByThreat": ""
+  },
+  {
+    "vulnerabilityType": "TECHNICAL",
+    "vulnerabilityDescription": "Are any old or weak cryptographic algorithms used either by default or in older code?",
+    "vulnerabilityPotential": "",
+    "reference": "OWASP Top 10 2017",
+    "threatName": "Sensitive Data Exposure",
+    "exploitedByThreat": ""
+  },
+  {
+    "vulnerabilityType": "TECHNICAL",
+    "vulnerabilityDescription": "Is encryption not enforced, e.g. are any user agent (browser) security directives or headers missing?",
+    "vulnerabilityPotential": "",
+    "reference": "OWASP Top 10 2017",
+    "threatName": "Sensitive Data Exposure",
+    "exploitedByThreat": ""
+  },
+  {
+    "vulnerabilityType": "TECHNICAL",
+    "vulnerabilityDescription": "Does the user agent (e.g. app, mail client) not verify if the received server certificate is valid?",
+    "vulnerabilityPotential": "",
+    "reference": "OWASP Top 10 2017",
+    "threatName": "Sensitive Data Exposure",
+    "exploitedByThreat": ""
+  },
+  {
+    "vulnerabilityType": "TECHNICAL",
+    "vulnerabilityDescription": "The application accepts XML directly or XML uploads, especially from untrusted sources, or inserts untrusted data into XML documents, which is then parsed by an XML processor.",
+    "vulnerabilityPotential": "",
+    "reference": "OWASP Top 10 2017",
+    "threatName": "XML External Entities (XXE)",
+    "exploitedByThreat": ""
+  },
+  {
+    "vulnerabilityType": "TECHNICAL",
+    "vulnerabilityDescription": "Any of the XML processors in the application or SOAP based web services has document type definitions (DTDs) enabled. As the exact mechanism for disabling DTD processing varies by processor, it is good practice to consult a reference such as the OWASP Cheat Sheet ‘XXE Prevention’.",
+    "vulnerabilityPotential": "",
+    "reference": "OWASP Top 10 2017",
+    "threatName": "XML External Entities (XXE)",
+    "exploitedByThreat": ""
+  },
+  {
+    "vulnerabilityType": "TECHNICAL",
+    "vulnerabilityDescription": "If the application uses SAML for identity processing within federated security or single sign on (SSO) purposes. SAML uses XML for identity assertions, and may be vulnerable.",
+    "vulnerabilityPotential": "",
+    "reference": "OWASP Top 10 2017",
+    "threatName": "XML External Entities (XXE)",
+    "exploitedByThreat": ""
+  },
+  {
+    "vulnerabilityType": "TECHNICAL",
+    "vulnerabilityDescription": "If the application uses SOAP prior to version 1.2, it is likely susceptible to XXE attacks if XML entities are being passed to the SOAP framework.",
+    "vulnerabilityPotential": "",
+    "reference": "OWASP Top 10 2017",
+    "threatName": "XML External Entities (XXE)",
+    "exploitedByThreat": ""
+  },
+  {
+    "vulnerabilityType": "TECHNICAL",
+    "vulnerabilityDescription": "Bypassing access control checks by modifying the URL, internal application state, or the HTML page, or simply using a custom API attack tool.",
+    "vulnerabilityPotential": "",
+    "reference": "OWASP Top 10 2017",
+    "threatName": "Broken Access Control",
+    "exploitedByThreat": ""
+  },
+  {
+    "vulnerabilityType": "TECHNICAL",
+    "vulnerabilityDescription": "Allowing the primary key to be changed to another’s users record, permitting viewing or editing someone else’s account.",
+    "vulnerabilityPotential": "",
+    "reference": "OWASP Top 10 2017",
+    "threatName": "Broken Access Control",
+    "exploitedByThreat": ""
+  },
+  {
+    "vulnerabilityType": "TECHNICAL",
+    "vulnerabilityDescription": "Elevation of privilege. Acting as a user without being logged in, or acting as an admin when logged in as a user.",
+    "vulnerabilityPotential": "",
+    "reference": "OWASP Top 10 2017",
+    "threatName": "Broken Access Control",
+    "exploitedByThreat": ""
+  },
+  {
+    "vulnerabilityType": "TECHNICAL",
+    "vulnerabilityDescription": "Metadata manipulation, such as replaying or tampering with a JSON Web Token (JWT) access control token or a cookie or hidden field manipulated to elevate privileges, or abusing JWT invalidation.",
+    "vulnerabilityPotential": "",
+    "reference": "OWASP Top 10 2017",
+    "threatName": "Broken Access Control",
+    "exploitedByThreat": ""
+  },
+  {
+    "vulnerabilityType": "TECHNICAL",
+    "vulnerabilityDescription": "CORS misconfiguration allows unauthorized API access.",
+    "vulnerabilityPotential": "",
+    "reference": "OWASP Top 10 2017",
+    "threatName": "Broken Access Control",
+    "exploitedByThreat": ""
+  },
+  {
+    "vulnerabilityType": "TECHNICAL",
+    "vulnerabilityDescription": "Force browsing to authenticated pages as an unauthenticated user or to privileged pages as a standard user. Accessing API with missing access controls for POST, PUT and DELETE.",
+    "vulnerabilityPotential": "",
+    "reference": "OWASP Top 10 2017",
+    "threatName": "Broken Access Control",
+    "exploitedByThreat": ""
+  },
+  {
+    "vulnerabilityType": "TECHNICAL",
+    "vulnerabilityDescription": "Application is missing appropriate security hardening across any part of the application stack, or improperly configured permissions on cloud services.",
+    "vulnerabilityPotential": "",
+    "reference": "OWASP Top 10 2017",
+    "threatName": "Security Misconfiguration",
+    "exploitedByThreat": ""
+  },
+  {
+    "vulnerabilityType": "TECHNICAL",
+    "vulnerabilityDescription": "Unnecessary features are enabled or installed (e.g. unnecessary ports, services, pages, accounts, or privileges).",
+    "vulnerabilityPotential": "",
+    "reference": "OWASP Top 10 2017",
+    "threatName": "Security Misconfiguration",
+    "exploitedByThreat": ""
+  },
+  {
+    "vulnerabilityType": "TECHNICAL",
+    "vulnerabilityDescription": "Default accounts and their passwords still enabled and unchanged.",
+    "vulnerabilityPotential": "",
+    "reference": "OWASP Top 10 2017",
+    "threatName": "Security Misconfiguration",
+    "exploitedByThreat": ""
+  },
+  {
+    "vulnerabilityType": "TECHNICAL",
+    "vulnerabilityDescription": "Error handling reveals stack traces or other overly informative error messages to users.",
+    "vulnerabilityPotential": "",
+    "reference": "OWASP Top 10 2017",
+    "threatName": "Security Misconfiguration",
+    "exploitedByThreat": ""
+  },
+  {
+    "vulnerabilityType": "TECHNICAL",
+    "vulnerabilityDescription": "For upgraded systems, latest security features are disabled or not configured securely.",
+    "vulnerabilityPotential": "",
+    "reference": "OWASP Top 10 2017",
+    "threatName": "Security Misconfiguration",
+    "exploitedByThreat": ""
+  },
+  {
+    "vulnerabilityType": "TECHNICAL",
+    "vulnerabilityDescription": "The security settings in the application servers, application frameworks (e.g. Struts, Spring, ASP.NET), libraries, databases, etc. not set to secure values.",
+    "vulnerabilityPotential": "",
+    "reference": "OWASP Top 10 2017",
+    "threatName": "Security Misconfiguration",
+    "exploitedByThreat": ""
+  },
+  {
+    "vulnerabilityType": "TECHNICAL",
+    "vulnerabilityDescription": "The server does not send security headers or directives or they are not set to secure values.",
+    "vulnerabilityPotential": "",
+    "reference": "OWASP Top 10 2017",
+    "threatName": "Security Misconfiguration",
+    "exploitedByThreat": ""
+  },
+  {
+    "vulnerabilityType": "TECHNICAL",
+    "vulnerabilityDescription": "The software is out of date or vulnerable (see A9:2017-Using Components with Known Vulnerabilities).",
+    "vulnerabilityPotential": "",
+    "reference": "OWASP Top 10 2017",
+    "threatName": "Security Misconfiguration",
+    "exploitedByThreat": ""
+  },
+  {
+    "vulnerabilityType": "TECHNICAL",
+    "vulnerabilityDescription": "Reflected XSS: The application or API includes unvalidated and unescaped user input as part of HTML output. A successful attack can allow the attacker to execute arbitrary HTML and JavaScript in the victim’s browser. Typically the user will need to interact with some malicious link that points to an attacker-controlled page, such as malicious watering hole websites, advertisements, or similar.",
+    "vulnerabilityPotential": "",
+    "reference": "OWASP Top 10 2017",
+    "threatName": "Cross-Site Scripting XSS",
+    "exploitedByThreat": ""
+  },
+  {
+    "vulnerabilityType": "TECHNICAL",
+    "vulnerabilityDescription": "Stored XSS: The application or API stores unsanitized user input that is viewed at a later time by another user or an administrator. Stored XSS is often considered a high or critical risk.",
+    "vulnerabilityPotential": "",
+    "reference": "OWASP Top 10 2017",
+    "threatName": "Cross-Site Scripting XSS",
+    "exploitedByThreat": ""
+  },
+  {
+    "vulnerabilityType": "TECHNICAL",
+    "vulnerabilityDescription": "DOM XSS: JavaScript frameworks, single-page applications, and APIs that dynamically include attacker-controllable data to a page are vulnerable to DOM XSS. Ideally, the application would not send attacker-controllable data to unsafe JavaScript APIs.",
+    "vulnerabilityPotential": "",
+    "reference": "OWASP Top 10 2017",
+    "threatName": "Cross-Site Scripting XSS",
+    "exploitedByThreat": ""
+  },
+  {
+    "vulnerabilityType": "TECHNICAL",
+    "vulnerabilityDescription": "Object and data structure related attacks where the attacker modifies application logic or achieves arbitrary remote code execution if there are classes available to the application that can change behavior during or after deserialization.",
+    "vulnerabilityPotential": "",
+    "reference": "OWASP Top 10 2017",
+    "threatName": "Insecure Deserialization",
+    "exploitedByThreat": ""
+  },
+  {
+    "vulnerabilityType": "TECHNICAL",
+    "vulnerabilityDescription": "Typical data tampering attacks such as access-control-related attacks where existing data structures are used but the content is changed.",
+    "vulnerabilityPotential": "",
+    "reference": "OWASP Top 10 2017",
+    "threatName": "Insecure Deserialization",
+    "exploitedByThreat": ""
+  },
+  {
+    "vulnerabilityType": "TECHNICAL",
+    "vulnerabilityDescription": "Likely vulnerable if you do not know the versions of all components you use (both client-side and server-side). This includes components you directly use as well as nested dependencies.",
+    "vulnerabilityPotential": "",
+    "reference": "OWASP Top 10 2017",
+    "threatName": "Using Components with Known Vulnerabilities",
+    "exploitedByThreat": ""
+  },
+  {
+    "vulnerabilityType": "TECHNICAL",
+    "vulnerabilityDescription": "Likely vulnerable if software is vulnerable, unsupported, or out of date. This includes the OS, web/application server, database management system (DBMS), applications, APIs and all components, runtime environments, and libraries.",
+    "vulnerabilityPotential": "",
+    "reference": "OWASP Top 10 2017",
+    "threatName": "Using Components with Known Vulnerabilities",
+    "exploitedByThreat": ""
+  },
+  {
+    "vulnerabilityType": "TECHNICAL",
+    "vulnerabilityDescription": "Likely vulnerable if you do not scan for vulnerabilities regularly and subscribe to security bulletins related to the components you use.",
+    "vulnerabilityPotential": "",
+    "reference": "OWASP Top 10 2017",
+    "threatName": "Using Components with Known Vulnerabilities",
+    "exploitedByThreat": ""
+  },
+  {
+    "vulnerabilityType": "TECHNICAL",
+    "vulnerabilityDescription": "Likely vulnerable if you do not fix or upgrade the underlying platform, frameworks, and dependencies in a risk-based, timely fashion. This commonly happens in environments when patching is a monthly or quarterly task under change control, which leaves organizations open to many days or months of unnecessary exposure to fixed vulnerabilities.",
+    "vulnerabilityPotential": "",
+    "reference": "OWASP Top 10 2017",
+    "threatName": "Using Components with Known Vulnerabilities",
+    "exploitedByThreat": ""
+  },
+  {
+    "vulnerabilityType": "TECHNICAL",
+    "vulnerabilityDescription": "Likely vulnerable if software developers do not test the compatibility of updated, upgraded, or patched libraries.",
+    "vulnerabilityPotential": "",
+    "reference": "OWASP Top 10 2017",
+    "threatName": "Using Components with Known Vulnerabilities",
+    "exploitedByThreat": ""
+  },
+  {
+    "vulnerabilityType": "TECHNICAL",
+    "vulnerabilityDescription": "Likely vulnerable if you do not secure the components’ configurations.",
+    "vulnerabilityPotential": "",
+    "reference": "OWASP Top 10 2017",
+    "threatName": "Using Components with Known Vulnerabilities",
+    "exploitedByThreat": ""
+  },
+  {
+    "vulnerabilityType": "TECHNICAL",
+    "vulnerabilityDescription": "Insufficient logging, detection, monitoring and active response occurs any time auditable events, such as logins, failed logins, and high-value transactions are not logged.",
+    "vulnerabilityPotential": "",
+    "reference": "OWASP Top 10 2017",
+    "threatName": "Insufficient Logging & Monitoring",
+    "exploitedByThreat": ""
+  },
+  {
+    "vulnerabilityType": "TECHNICAL",
+    "vulnerabilityDescription": "Insufficient logging, detection, monitoring and active response occurs any time warnings and errors generate no, inadequate, or unclear log messages.",
+    "vulnerabilityPotential": "",
+    "reference": "OWASP Top 10 2017",
+    "threatName": "Insufficient Logging & Monitoring",
+    "exploitedByThreat": ""
+  },
+  {
+    "vulnerabilityType": "TECHNICAL",
+    "vulnerabilityDescription": "Insufficient logging, detection, monitoring and active response occurs any time logs of applications and APIs are not monitored for suspicious activity.",
+    "vulnerabilityPotential": "",
+    "reference": "OWASP Top 10 2017",
+    "threatName": "Insufficient Logging & Monitoring",
+    "exploitedByThreat": ""
+  },
+  {
+    "vulnerabilityType": "TECHNICAL",
+    "vulnerabilityDescription": "Insufficient logging, detection, monitoring and active response occurs any time logs are only stored locally.",
+    "vulnerabilityPotential": "",
+    "reference": "OWASP Top 10 2017",
+    "threatName": "Insufficient Logging & Monitoring",
+    "exploitedByThreat": ""
+  },
+  {
+    "vulnerabilityType": "TECHNICAL",
+    "vulnerabilityDescription": "Insufficient logging, detection, monitoring and active response occurs any time appropriate alerting thresholds and response escalation processes are not in place or effective.",
+    "vulnerabilityPotential": "",
+    "reference": "OWASP Top 10 2017",
+    "threatName": "Insufficient Logging & Monitoring",
+    "exploitedByThreat": ""
+  },
+  {
+    "vulnerabilityType": "TECHNICAL",
+    "vulnerabilityDescription": "Insufficient logging, detection, monitoring and active response occurs any time penetration testing and scans by DAST tools (such as OWASP ZAP) do not trigger alerts.",
+    "vulnerabilityPotential": "",
+    "reference": "OWASP Top 10 2017",
+    "threatName": "Insufficient Logging & Monitoring",
+    "exploitedByThreat": ""
+  },
+  {
+    "vulnerabilityType": "TECHNICAL",
+    "vulnerabilityDescription": "Insufficient logging, detection, monitoring and active response occurs any time the application is unable to detect, escalate, or alert for active attacks in real time or near real time.",
+    "vulnerabilityPotential": "",
+    "reference": "OWASP Top 10 2017",
+    "threatName": "Insufficient Logging & Monitoring",
+    "exploitedByThreat": ""
+  },
+  {
+    "vulnerabilityType": "TECHNICAL",
+    "vulnerabilityDescription": "You are vulnerable to information leakage if you make logging and alerting events visible to a user or an attacker",
+    "vulnerabilityPotential": "",
+    "reference": "OWASP Top 10 2017",
+    "threatName": "Insufficient Logging & Monitoring",
+    "exploitedByThreat": ""
+  }
+]

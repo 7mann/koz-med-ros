@@ -1,14 +1,12 @@
 # Compiled class file
 *.class
 
+# iml file
+*.iml
+
 # Log file
 *.log
 
-# BlueJ files
-*.ctxt
-
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
 
 # Package Files #
 *.jar
@@ -23,3 +21,11 @@
 hs_err_pid*
 /.idea/
 /.idea.old/
+
+
+#Gradle files
+.gradle
+/build/
+
+
+/tools

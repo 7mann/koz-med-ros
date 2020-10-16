@@ -1,5 +1,3 @@
-@file:Suppress("UnusedImport")
-
 package no.kommune.oslo.kozmedros.model.repository
 
 import no.kommune.oslo.kozmedros.model.*
@@ -23,9 +21,7 @@ internal class FileThreatLibraryRepositoryTest {
 
     @Test
     fun `Expect exeption thrown with illegal parameter`() {
-        assertFailsWith<IllegalArgumentException> {
-            FileThreatLibraryRepository(path = "", threatAgentFileName = "somefile", threatFileName = "somefile", vulnerabilityFileName = "somefile")
-        }
+      
         assertFailsWith<IllegalArgumentException> {
             FileThreatLibraryRepository(path = ".", threatAgentFileName = "", threatFileName = "somefile", vulnerabilityFileName = "somefile")
         }
@@ -48,15 +44,9 @@ internal class FileThreatLibraryRepositoryTest {
                 vulnerabilityFileName = testVulnerabilityFileName
         )
         threatLibraryRepo.writeThreatAgents(threatLibrary)
-        assertThat(File(testfile).exists()).isTrue()
         val readThreatLibrary = threatLibraryRepo.readThreatAgents()
-        assertThat(threatLibrary.size).isEqualTo(readThreatLibrary.size)
-
-        assertThat(File(testfile).exists()).isTrue()
-
-        if (!File(testfile).exists()) return
-        logger.debug("Removing $testfile")
-        File(testfile).delete()
+        assertThat(threatLibrary).containsExactlyElementsOf(readThreatLibrary)
+        deleteFile(testfile)
     }
 
     @Test
@@ -73,18 +63,16 @@ internal class FileThreatLibraryRepositoryTest {
         threatLibraryRepo.writeThreats(threatList)
         assertThat(File(testThreatfile).exists()).isTrue()
         val readThreatsfromLibrary = threatLibraryRepo.readThreats()
-        assertThat(threatList.size).isEqualTo(readThreatsfromLibrary.size)
-
-        assertThat(File(testThreatfile).exists()).isTrue()
+        assertThat(threatList).containsExactlyElementsOf(readThreatsfromLibrary)
+        deleteFile(testThreatfile)
     }
 
     @Test
     fun `Test reading OWASP threat from file`() {
-        val owaspThreatfile = "$resourcesPath/$owaspThreatFileName"
         val threatLibraryRepo = FileThreatLibraryRepository(
-                path = resourcesPath,
+                path = "",
                 threatAgentFileName = testThreatAgentFileName,
-                threatFileName = owaspThreatFileName,
+                threatFileName = this::class.java.getResource("/$owaspThreatFileName").file,
                 vulnerabilityFileName = testVulnerabilityFileName
         )
 
@@ -95,11 +83,10 @@ internal class FileThreatLibraryRepositoryTest {
 
     @Test
     fun `Test reading OWASP vulnerabilities from file`() {
-//        val owaspThreatfile = "$resourcesPath/$owaspVulnerabilitiesFileName"
         val threatLibraryRepo = FileThreatLibraryRepository(
-                path = resourcesPath,
+                path = "",
                 threatAgentFileName = testThreatAgentFileName,
-                threatFileName = owaspThreatFileName,
+                threatFileName = this::class.java.getResource("/$owaspThreatFileName").file,
                 vulnerabilityFileName = owaspVulnerabilitiesFileName
         )
 
@@ -109,7 +96,6 @@ internal class FileThreatLibraryRepositoryTest {
         val readThreatsfromLibrary = threatLibraryRepo.readThreats()
         val tl = createHighOWASPThreatList()
         logger.debug("Number of threats read: ${readThreatsfromLibrary.size}")
-        val threatMap = readThreatsfromLibrary.associateBy({ it.threatName }, { it })
         var updatedVulnerabilities = mutableListOf<Vulnerability>()
 //        for( vul in readVulnerabilitiesfromLibrary) {
 //            val threat: Threat? = threatMap.get(vul.threatName)
@@ -141,6 +127,7 @@ internal class FileThreatLibraryRepositoryTest {
         ))
     }
 
+
     private fun createHighOWASPthreatPresence(): OwaspThreatPresence {
         return OwaspThreatPresence(
                 exploitability = ThreatExploitability.EASY,
@@ -160,4 +147,9 @@ internal class FileThreatLibraryRepositoryTest {
         )
     }
 
+    private fun deleteFile(testfile: String) {
+        if (!File(testfile).exists()) return
+        logger.debug("Removing $testfile")
+        File(testfile).delete()
+    }
 }

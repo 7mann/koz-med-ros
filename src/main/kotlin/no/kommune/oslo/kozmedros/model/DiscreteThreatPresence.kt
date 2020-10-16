@@ -1,8 +1,13 @@
 package no.kommune.oslo.kozmedros.model
 
 import no.kommune.oslo.kozmedros.model.enums.SeverityLevel
-import no.kommune.oslo.kozmedros.model.enums.SeverityLevel.Companion
+import no.kommune.oslo.kozmedros.model.enums.SeverityLevel.Companion as co
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+
+@Serializable
+@SerialName("discrete")
 data class DiscreteThreatPresence(
         val isPresent: Boolean,
         val hasCapacity: Boolean,
@@ -18,7 +23,7 @@ data class DiscreteThreatPresence(
         if (hasIntention) numberOfArgumentsTrue += 1
         if (hasHistory) numberOfArgumentsTrue += 1
         if (isTarget) numberOfArgumentsTrue += 1
-        return Companion.getByValue(numberOfArgumentsTrue * 100)
+        return co.getByValue(numberOfArgumentsTrue * 100)
 //        val result = when (numberOfArgumentsTrue) {
 //            0 -> NONE
 //            1 -> INSIGNIFICANT

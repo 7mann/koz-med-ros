@@ -1,6 +1,5 @@
 package no.kommune.oslo.kozmedros.model.repository
 
-import com.google.gson.reflect.TypeToken
 import no.kommune.oslo.kozmedros.model.RiskScenario
 import org.apache.logging.log4j.LogManager
 
@@ -21,13 +20,12 @@ class FileRiskScenarioLibraryRepository(val path: String, val fileName: String) 
     }
 
     override fun readRiskScenarios(): List<RiskScenario> {
-        val classType = object : TypeToken<List<RiskScenario>>() {}.type
-        val riskScenarioList: List<RiskScenario> = this.readJsonFile<RiskScenario>(fileNameAndPath, classType)
+        val riskScenarioList: List<RiskScenario> = readJsonFile<RiskScenario>(fileNameAndPath)
         logger.debug(" ${riskScenarioList.size} RiskScenarios read from file ${fileNameAndPath}")
         return riskScenarioList
     }
 
     override fun writeRiskScenarios(riskScenarios: List<RiskScenario>) {
-        this.writeJsonFile(riskScenarios, fileNameAndPath)
+        writeJsonFile(riskScenarios, fileNameAndPath)
     }
 }

@@ -1,7 +1,9 @@
 package no.kommune.oslo.kozmedros.model
 
+import kotlinx.serialization.Serializable
 import no.kommune.oslo.kozmedros.model.enums.ThreatAgentType
 
+@Serializable
 data class ThreatAgent(
         val threatAgentType: ThreatAgentType,
         val threatAgent: String,
