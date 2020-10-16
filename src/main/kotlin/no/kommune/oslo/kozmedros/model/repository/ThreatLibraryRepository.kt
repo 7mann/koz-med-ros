@@ -10,5 +10,5 @@ interface ThreatLibraryRepository {
     fun readThreats(): List<Threat>
     fun writeThreats(threats: List<Threat>)
     fun readVulnerabilites(): List<Vulnerability>
-    fun writeulnerabilites(threats: List<Vulnerability>)
+    fun writeVulnerabilites(vulnerabilities: List<Vulnerability>)
 }

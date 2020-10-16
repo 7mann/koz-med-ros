@@ -29,10 +29,6 @@ class FileThreatLibraryRepository(
 
 
     init {
-        if (path.isBlank()) {
-            logger.error("Path must be present!")
-            throw IllegalArgumentException("Path must be present!")
-        }
         if (threatAgentFileName.isBlank()) {
             logger.error("ThreatAgent file name must be present!")
             throw IllegalArgumentException("ThreatAgent file name must be present!")
@@ -73,7 +69,7 @@ class FileThreatLibraryRepository(
         return this.readJsonFile<Vulnerability>(fileNameAndPath = "$path/$vulnerabilityFileName")
     }
 
-    override fun writeulnerabilites(vulnerabilities: List<Vulnerability>) {
+    override fun writeVulnerabilites(vulnerabilities: List<Vulnerability>) {
         if (vulnerabilities.isNullOrEmpty()) {
             throw IllegalArgumentException("Vulnerability list can not be null or empty!")
         }
